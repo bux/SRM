@@ -1,0 +1,12 @@
+using System.Collections.Generic;
+
+namespace SRM.Classes
+{
+    public class Settings
+    {
+        public string SwiftyCliPath { get; set; } = string.Empty;
+        public string ModsFolderPath { get; set; } = string.Empty;
+
+        public List<RepoProfile> RepoProfiles { get; set; } = new List<RepoProfile>();
+    }
+}
