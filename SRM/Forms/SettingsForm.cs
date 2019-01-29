@@ -39,33 +39,44 @@ namespace SRM.Forms
         {
             var swiftyValid = IsSwiftyValid();
             var modsFolderValid = IsModsFolderValid();
+            var sourceRepoFolderValid = IsRepoFolderValid();
 
             if (!swiftyValid)
             {
-                MessageBox.Show("Path to swifty-cli is not valid", "Validation Error");
+                MessageBox.Show("TargetPath to swifty-cli is not valid", "Validation Error");
                 textBoxPathSwiftyCli.BackColor = Color.RosyBrown;
             }
 
             if (!modsFolderValid)
             {
-                MessageBox.Show("Path to Mods Folder is not valid", "Validation Error");
+                MessageBox.Show("TargetPath to Mods Folder is not valid", "Validation Error");
                 textBoxPathModsFolder.BackColor = Color.RosyBrown;
             }
 
-            if (!swiftyValid || !modsFolderValid)
+            if (!sourceRepoFolderValid)
+            {
+                MessageBox.Show("TargetPath to Source Repo Folder is not valid", "Validation Error");
+                textBoxPathModsFolder.BackColor = Color.RosyBrown;
+            }
+
+            if (!swiftyValid || !modsFolderValid || !sourceRepoFolderValid)
             {
                 return;
             }
 
             textBoxPathSwiftyCli.BackColor = Color.Empty;
             textBoxPathModsFolder.BackColor = Color.Empty;
+            textBoxRepoSourceFolder.BackColor = Color.Empty;
 
             Settings.SwiftyCliPath = textBoxPathSwiftyCli.Text;
             Settings.ModsFolderPath = textBoxPathModsFolder.Text;
+            Settings.RepoSourceFolderPath = textBoxRepoSourceFolder.Text;
 
             DialogResult = DialogResult.OK;
             Close();
         }
+
+
 
         private void buttonBrowseSwiftyCli_Click(object sender, EventArgs e)
         {
@@ -105,10 +116,39 @@ namespace SRM.Forms
             }
         }
 
+        private void buttonBrowseRepoSourceFolder_Click(object sender, EventArgs e)
+        {
+            var folderDialog = new CommonOpenFileDialog
+            {
+                IsFolderPicker = true,
+                DefaultDirectory = string.IsNullOrEmpty(Settings.RepoSourceFolderPath) ? "" : Settings.RepoSourceFolderPath
+            };
+
+            if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                textBoxRepoSourceFolder.Text = folderDialog.FileName;
+            }
+        }
+
         #endregion
 
         #region Validation
 
+        private bool IsRepoFolderValid()
+        {
+            if (string.IsNullOrEmpty(textBoxRepoSourceFolder.Text))
+            {
+                return false;
+            }
+
+            var directoryInfoMods = new DirectoryInfo(textBoxRepoSourceFolder.Text);
+            if (!directoryInfoMods.Exists)
+            {
+                return false;
+            }
+
+            return true;
+        }
 
         private bool IsModsFolderValid()
         {
@@ -141,6 +181,7 @@ namespace SRM.Forms
 
             return true;
         }
+
 
 
         #endregion

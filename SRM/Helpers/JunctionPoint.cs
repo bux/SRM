@@ -243,7 +243,7 @@ namespace SRM.Helpers {
         public static void Delete(string junctionPoint) {
             if (!Directory.Exists(junctionPoint)) {
                 if (File.Exists(junctionPoint))
-                    throw new IOException("Path is not a junction point.");
+                    throw new IOException("TargetPath is not a junction point.");
 
                 return;
             }
@@ -309,7 +309,7 @@ namespace SRM.Helpers {
             using (SafeFileHandle handle = OpenReparsePoint(junctionPoint, EFileAccess.GenericRead)) {
                 string target = InternalGetTarget(handle);
                 if (target == null)
-                    throw new IOException("Path is not a junction point.");
+                    throw new IOException("TargetPath is not a junction point.");
 
                 return target;
             }

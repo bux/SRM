@@ -11,18 +11,19 @@ namespace SRM
 {
     public partial class MainForm : Form
     {
-        private readonly SettingsManager _settingsManager;
+        private readonly RepoManager _repoManager;
         private readonly ProfileManager _profileManager;
-        private readonly JunctionManager _junctionManager;
+        private readonly SettingsManager _settingsManager;
+        private RepoProfile _activeProfile;
 
         private Settings _settings;
-        private RepoProfile _activeProfile;
 
         public MainForm()
         {
             InitializeComponent();
             _settingsManager = new SettingsManager();
             _profileManager = new ProfileManager();
+            _repoManager = new RepoManager();
 
             // Load Settings if available
             _settings = _settingsManager.LoadSettings();
@@ -81,7 +82,7 @@ namespace SRM
             textBoxClientParameters.Text = _activeProfile.Repository.ClientParams;
             textBoxRepoImage.Text = _activeProfile.Repository.ImagePath;
             textBoxProfileName.Text = _activeProfile.Name;
-            textBoxProfilePath.Text = _activeProfile.Repository.Path;
+            textBoxProfilePath.Text = _activeProfile.Repository.TargetPath;
             textBoxServerAddress.Text = _activeProfile.Repository.ServerInfo.Address;
             textBoxServerName.Text = _activeProfile.Repository.ServerInfo.Name;
             textBoxServerPassword.Text = _activeProfile.Repository.ServerInfo.Password;
@@ -140,8 +141,23 @@ namespace SRM
             }
         }
 
-        #region Events
 
+        private void CreateRepository(RepoProfile activeProfile)
+        {
+            _repoManager.CreateRepository(activeProfile, _settings.ModsFolderPath, _settings.SwiftyCliPath, _settings.RepoSourceFolderPath);
+        }
+
+        private bool IsRepoValid()
+        {
+            var valid = !string.IsNullOrEmpty(_activeProfile.Repository.Name)
+                        && !string.IsNullOrEmpty(_activeProfile.Repository.TargetPath)
+                        && !string.IsNullOrEmpty(_activeProfile.Repository.ImagePath);
+
+            // TODO
+            return true;
+        }
+
+        #region Events
 
         private void profileMenuItem_Click(object sender, EventArgs e)
         {
@@ -223,19 +239,18 @@ namespace SRM
             var folderDialog = new CommonOpenFileDialog
             {
                 IsFolderPicker = true,
-                DefaultDirectory = string.IsNullOrEmpty(_activeProfile.Repository.Path) ? "" : _activeProfile.Repository.Path
+                DefaultDirectory = string.IsNullOrEmpty(_activeProfile.Repository.TargetPath) ? "" : _activeProfile.Repository.TargetPath
             };
 
             if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
                 textBoxProfilePath.Text = folderDialog.FileName;
-                _activeProfile.Repository.Path = folderDialog.FileName;
+                _activeProfile.Repository.TargetPath = folderDialog.FileName;
             }
         }
 
         private void buttonBrowseRepoImage_Click(object sender, EventArgs e)
         {
-            
             var fileDialog = new OpenFileDialog
             {
                 Filter = "Repository Image|repo.png"
@@ -254,12 +269,12 @@ namespace SRM
             _activeProfile.Repository.Name = textBoxRepoName.Text;
             _activeProfile.Repository.ImagePath = textBoxRepoImage.Text;
             _activeProfile.Repository.ClientParams = textBoxClientParameters.Text;
-            _activeProfile.Repository.Path = textBoxProfilePath.Text;
+            _activeProfile.Repository.TargetPath = textBoxProfilePath.Text;
             _activeProfile.Repository.ServerInfo.Address = textBoxServerAddress.Text;
             _activeProfile.Repository.ServerInfo.Name = textBoxServerName.Text;
             _activeProfile.Repository.ServerInfo.Password = textBoxServerPassword.Text;
 
-            var result = int.TryParse(textBoxServerPort.Text, out int portResult) ? portResult : 2302;
+            var result = int.TryParse(textBoxServerPort.Text, out var portResult) ? portResult : 2302;
             _activeProfile.Repository.ServerInfo.Port = result;
 
             _activeProfile.Repository.ServerInfo.BattleEye = checkBoxServerBattleEye.Checked;
@@ -274,6 +289,16 @@ namespace SRM
             _settingsManager.SaveSettings(_settings);
         }
 
+        private void buttonCreateRepository_Click(object sender, EventArgs e)
+        {
+            // Validate
+            var valid = IsRepoValid();
+
+            if (valid)
+            {
+                CreateRepository(_activeProfile);
+            }
+        }
 
         #endregion
     }

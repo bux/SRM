@@ -45,6 +45,9 @@
             this.label8 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.groupBoxProfile = new System.Windows.Forms.GroupBox();
+            this.buttonBrowseRepoImage = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBoxRepoImage = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.textBoxRepoName = new System.Windows.Forms.TextBox();
             this.checkBoxServerBattleEye = new System.Windows.Forms.CheckBox();
@@ -63,9 +66,6 @@
             this.textBoxProfilePath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxProfileName = new System.Windows.Forms.TextBox();
-            this.buttonBrowseRepoImage = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.textBoxRepoImage = new System.Windows.Forms.TextBox();
             this.menuStrip.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -157,7 +157,7 @@
             this.panel4.Controls.Add(this.buttonSaveProfile);
             this.panel4.Location = new System.Drawing.Point(284, 230);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(311, 114);
+            this.panel4.Size = new System.Drawing.Size(311, 97);
             this.panel4.TabIndex = 5;
             // 
             // buttonCreateRepository
@@ -168,6 +168,7 @@
             this.buttonCreateRepository.TabIndex = 2;
             this.buttonCreateRepository.Text = "Create Repository";
             this.buttonCreateRepository.UseVisualStyleBackColor = true;
+            this.buttonCreateRepository.Click += new System.EventHandler(this.buttonCreateRepository_Click);
             // 
             // buttonSaveProfile
             // 
@@ -249,6 +250,33 @@
             this.groupBoxProfile.TabIndex = 0;
             this.groupBoxProfile.TabStop = false;
             this.groupBoxProfile.Text = "Profile";
+            // 
+            // buttonBrowseRepoImage
+            // 
+            this.buttonBrowseRepoImage.Location = new System.Drawing.Point(212, 166);
+            this.buttonBrowseRepoImage.Name = "buttonBrowseRepoImage";
+            this.buttonBrowseRepoImage.Size = new System.Drawing.Size(25, 23);
+            this.buttonBrowseRepoImage.TabIndex = 21;
+            this.buttonBrowseRepoImage.Text = "...";
+            this.buttonBrowseRepoImage.UseVisualStyleBackColor = true;
+            this.buttonBrowseRepoImage.Click += new System.EventHandler(this.buttonBrowseRepoImage_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 152);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(65, 13);
+            this.label10.TabIndex = 20;
+            this.label10.Text = "Repo Image";
+            // 
+            // textBoxRepoImage
+            // 
+            this.textBoxRepoImage.Location = new System.Drawing.Point(6, 168);
+            this.textBoxRepoImage.Name = "textBoxRepoImage";
+            this.textBoxRepoImage.ReadOnly = true;
+            this.textBoxRepoImage.Size = new System.Drawing.Size(200, 20);
+            this.textBoxRepoImage.TabIndex = 19;
             // 
             // label9
             // 
@@ -373,7 +401,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Path";
+            this.label2.Text = "TargetPath";
             // 
             // textBoxProfilePath
             // 
@@ -399,33 +427,6 @@
             this.textBoxProfileName.ReadOnly = true;
             this.textBoxProfileName.Size = new System.Drawing.Size(200, 20);
             this.textBoxProfileName.TabIndex = 0;
-            // 
-            // buttonBrowseRepoImage
-            // 
-            this.buttonBrowseRepoImage.Location = new System.Drawing.Point(212, 166);
-            this.buttonBrowseRepoImage.Name = "buttonBrowseRepoImage";
-            this.buttonBrowseRepoImage.Size = new System.Drawing.Size(25, 23);
-            this.buttonBrowseRepoImage.TabIndex = 21;
-            this.buttonBrowseRepoImage.Text = "...";
-            this.buttonBrowseRepoImage.UseVisualStyleBackColor = true;
-            this.buttonBrowseRepoImage.Click += new System.EventHandler(this.buttonBrowseRepoImage_Click);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 152);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(65, 13);
-            this.label10.TabIndex = 20;
-            this.label10.Text = "Repo Image";
-            // 
-            // textBoxRepoImage
-            // 
-            this.textBoxRepoImage.Location = new System.Drawing.Point(6, 168);
-            this.textBoxRepoImage.Name = "textBoxRepoImage";
-            this.textBoxRepoImage.ReadOnly = true;
-            this.textBoxRepoImage.Size = new System.Drawing.Size(200, 20);
-            this.textBoxRepoImage.TabIndex = 19;
             // 
             // MainForm
             // 
