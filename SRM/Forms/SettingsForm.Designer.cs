@@ -32,20 +32,20 @@
             this.buttonBrowseSwiftyCli = new System.Windows.Forms.Button();
             this.labelPathSwiftyCli = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxRepoSourceFolder = new System.Windows.Forms.TextBox();
+            this.buttonBrowseRepoSourceFolder = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.labelPathModsFolder = new System.Windows.Forms.Label();
             this.textBoxPathModsFolder = new System.Windows.Forms.TextBox();
             this.buttonBrowsePathModsFolder = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxRepoSourceFolder = new System.Windows.Forms.TextBox();
-            this.buttonBrowseRepoSourceFolder = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxPathSwiftyCli
@@ -72,7 +72,7 @@
             this.labelPathSwiftyCli.Name = "labelPathSwiftyCli";
             this.labelPathSwiftyCli.Size = new System.Drawing.Size(103, 13);
             this.labelPathSwiftyCli.TabIndex = 2;
-            this.labelPathSwiftyCli.Text = "TargetPath to swifty-cli.exe";
+            this.labelPathSwiftyCli.Text = "Path to swifty-cli.exe";
             // 
             // panel1
             // 
@@ -85,6 +85,44 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(451, 276);
             this.panel1.TabIndex = 3;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.label1);
+            this.groupBox3.Controls.Add(this.textBoxRepoSourceFolder);
+            this.groupBox3.Controls.Add(this.buttonBrowseRepoSourceFolder);
+            this.groupBox3.Location = new System.Drawing.Point(12, 144);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(425, 71);
+            this.groupBox3.TabIndex = 6;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Repo Source Folder";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(102, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Repo Source Folder";
+            // 
+            // textBoxRepoSourceFolder
+            // 
+            this.textBoxRepoSourceFolder.Location = new System.Drawing.Point(118, 26);
+            this.textBoxRepoSourceFolder.Name = "textBoxRepoSourceFolder";
+            this.textBoxRepoSourceFolder.Size = new System.Drawing.Size(261, 20);
+            this.textBoxRepoSourceFolder.TabIndex = 3;
+            // 
+            // buttonBrowseRepoSourceFolder
+            // 
+            this.buttonBrowseRepoSourceFolder.Location = new System.Drawing.Point(385, 24);
+            this.buttonBrowseRepoSourceFolder.Name = "buttonBrowseRepoSourceFolder";
+            this.buttonBrowseRepoSourceFolder.Size = new System.Drawing.Size(30, 23);
+            this.buttonBrowseRepoSourceFolder.TabIndex = 4;
+            this.buttonBrowseRepoSourceFolder.Text = "...";
+            this.buttonBrowseRepoSourceFolder.UseVisualStyleBackColor = true;
+            this.buttonBrowseRepoSourceFolder.Click += new System.EventHandler(this.buttonBrowseRepoSourceFolder_Click);
             // 
             // groupBox2
             // 
@@ -105,7 +143,7 @@
             this.labelPathModsFolder.Name = "labelPathModsFolder";
             this.labelPathModsFolder.Size = new System.Drawing.Size(102, 13);
             this.labelPathModsFolder.TabIndex = 2;
-            this.labelPathModsFolder.Text = "TargetPath to Mods Folder";
+            this.labelPathModsFolder.Text = "Path to Mods Folder";
             // 
             // textBoxPathModsFolder
             // 
@@ -146,44 +184,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Swifty";
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.label1);
-            this.groupBox3.Controls.Add(this.textBoxRepoSourceFolder);
-            this.groupBox3.Controls.Add(this.buttonBrowseRepoSourceFolder);
-            this.groupBox3.Location = new System.Drawing.Point(12, 144);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(425, 71);
-            this.groupBox3.TabIndex = 6;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Repo Source Folder";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 29);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Repo Source Folder";
-            // 
-            // textBoxRepoSourceFolder
-            // 
-            this.textBoxRepoSourceFolder.Location = new System.Drawing.Point(118, 26);
-            this.textBoxRepoSourceFolder.Name = "textBoxRepoSourceFolder";
-            this.textBoxRepoSourceFolder.Size = new System.Drawing.Size(261, 20);
-            this.textBoxRepoSourceFolder.TabIndex = 3;
-            // 
-            // buttonBrowseRepoSourceFolder
-            // 
-            this.buttonBrowseRepoSourceFolder.Location = new System.Drawing.Point(385, 24);
-            this.buttonBrowseRepoSourceFolder.Name = "buttonBrowseRepoSourceFolder";
-            this.buttonBrowseRepoSourceFolder.Size = new System.Drawing.Size(30, 23);
-            this.buttonBrowseRepoSourceFolder.TabIndex = 4;
-            this.buttonBrowseRepoSourceFolder.Text = "...";
-            this.buttonBrowseRepoSourceFolder.UseVisualStyleBackColor = true;
-            this.buttonBrowseRepoSourceFolder.Click += new System.EventHandler(this.buttonBrowseRepoSourceFolder_Click);
-            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -198,12 +198,12 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Settings";
             this.panel1.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }

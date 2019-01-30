@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using SRM.Classes;
@@ -51,7 +52,7 @@ namespace SRM.Managers
 
             // create repo.json
             var swiftyRepo = SwiftyJsonHelper.MapToSwifty(repoProfile);
-            var fiRepoJson = new FileInfo(Path.Combine(diSourceFolder.FullName, "repo.json"));
+            var fiRepoJson = new FileInfo(Path.Combine(diSourceFolder.FullName, Constants.RepoConfigFileName));
 
             var serializer = new JsonSerializer
             {
@@ -72,7 +73,7 @@ namespace SRM.Managers
                 throw new InvalidOperationException($"repo.png at '{repoProfile.Repository.ImagePath}' does not exist.");
             }
 
-            fiRepoImage.CopyTo(Path.Combine(diSourceFolder.FullName, "repo.png"), true);
+            fiRepoImage.CopyTo(Path.Combine(diSourceFolder.FullName, Constants.RepoImageFileName), true);
 
 
             // create Junctions in source folder
@@ -82,10 +83,34 @@ namespace SRM.Managers
             }
 
             // execute swifty-cli
-            // create "D:\Swifty Repos\Infantry-Only\repo.json" "D:\Webserver\Repos\Infantry-Only"
             ProcessHelper.ExecuteProcess($"\"{swiftyCliPath}\" create \"{fiRepoJson.FullName}\" \"{repoProfile.Repository.TargetPath}\" --nocopy");
 
-            // create Mod Junctions
+
+            foreach (var dir in diTargetFolder.EnumerateDirectories())
+            {
+                var modName = repoProfile.Repository.Mods.Single(m => m.Equals(dir.Name, StringComparison.OrdinalIgnoreCase));
+
+                // in the target folder rename created mod folders to temp
+                dir.MoveTo($"{dir.FullName}_temp");
+
+
+                // create mod junction
+                var newModJunctionPath = Path.Combine(diTargetFolder.FullName, modName);
+                JunctionPoint.Create(Path.Combine(modFolderPath, modName), newModJunctionPath, true);
+
+                // move srf file to junction folder
+                var fiModSrf = new FileInfo(Path.Combine(dir.FullName, Constants.ModDescriptionFileName));
+                var newModSrfPath = Path.Combine(newModJunctionPath, Constants.ModDescriptionFileName);
+                if (File.Exists(newModSrfPath))
+                {
+                    File.Delete(newModSrfPath);
+                }
+                fiModSrf.MoveTo(newModSrfPath);
+
+                // delete temp folder
+                dir.Delete(true);
+            }
+            
         }
     }
 }

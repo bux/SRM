@@ -11,8 +11,8 @@ namespace SRM
 {
     public partial class MainForm : Form
     {
-        private readonly RepoManager _repoManager;
         private readonly ProfileManager _profileManager;
+        private readonly RepoManager _repoManager;
         private readonly SettingsManager _settingsManager;
         private RepoProfile _activeProfile;
 
@@ -116,7 +116,10 @@ namespace SRM
                     if (dirNames.Contains(mod.ToLowerInvariant()))
                     {
                         var index = dirNames.IndexOf(mod);
-                        listBoxAllMods.SetSelected(index, true);
+                        if (index >= 0)
+                        {
+                            listBoxAllMods.SetSelected(index, true);
+                        }
                     }
                 }
             }
@@ -151,10 +154,19 @@ namespace SRM
         {
             var valid = !string.IsNullOrEmpty(_activeProfile.Repository.Name)
                         && !string.IsNullOrEmpty(_activeProfile.Repository.TargetPath)
-                        && !string.IsNullOrEmpty(_activeProfile.Repository.ImagePath);
+                        && !string.IsNullOrEmpty(_activeProfile.Repository.ImagePath)
+                        && _activeProfile.Repository.Mods.Any();
 
-            // TODO
-            return true;
+            return valid;
+        }
+
+        private bool AreSettingsValid()
+        {
+            var valid = !string.IsNullOrEmpty(_settings.SwiftyCliPath)
+                        && !string.IsNullOrEmpty(_settings.ModsFolderPath)
+                        && !string.IsNullOrEmpty(_settings.RepoSourceFolderPath);
+
+            return valid;
         }
 
         #region Events
@@ -162,7 +174,7 @@ namespace SRM
         private void profileMenuItem_Click(object sender, EventArgs e)
         {
             // Get Profile by Name
-            var profile = _settings.RepoProfiles.Single(p => p.Name.ToLowerInvariant().Equals(sender.ToString().ToLowerInvariant()));
+            var profile = _settings.RepoProfiles.Single(p => p.Name.Equals(sender.ToString(), StringComparison.OrdinalIgnoreCase));
             SwitchProfile(profile);
         }
 
@@ -292,12 +304,35 @@ namespace SRM
         private void buttonCreateRepository_Click(object sender, EventArgs e)
         {
             // Validate
-            var valid = IsRepoValid();
+            var repoValid = IsRepoValid();
+            var settingsValid = AreSettingsValid();
 
-            if (valid)
+            if (!repoValid)
             {
-                CreateRepository(_activeProfile);
+                MessageBox.Show("The repository is not valid and/or missing information", "Validation Error");
+                return;
             }
+
+            if (!settingsValid)
+            {
+                MessageBox.Show("The settings are not valid and/or missing information", "Validation Error");
+                return;
+            }
+
+
+            var confirmResult = MessageBox.Show("Creating a repository will delete all contents from the target path. Are you sure?", "Confirm Delete", MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.No)
+            {
+                return;
+            }
+
+            _settingsManager.SaveSettings(_settings);
+            CreateRepository(_activeProfile);
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         #endregion

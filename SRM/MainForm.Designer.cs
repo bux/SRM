@@ -66,6 +66,8 @@
             this.textBoxProfilePath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxProfileName = new System.Windows.Forms.TextBox();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -92,37 +94,39 @@
             this.newProfileToolStripMenuItem,
             this.renameProfileToolStripMenuItem,
             this.duplicateProfileToolStripMenuItem,
-            this.deleteProfileToolStripMenuItem});
+            this.deleteProfileToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.exitToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
-            this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.editToolStripMenuItem.Text = "File";
             // 
             // newProfileToolStripMenuItem
             // 
             this.newProfileToolStripMenuItem.Name = "newProfileToolStripMenuItem";
-            this.newProfileToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.newProfileToolStripMenuItem.Text = "New";
+            this.newProfileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newProfileToolStripMenuItem.Text = "New Profile";
             this.newProfileToolStripMenuItem.Click += new System.EventHandler(this.newProfileToolStripMenuItem_Click);
             // 
             // renameProfileToolStripMenuItem
             // 
             this.renameProfileToolStripMenuItem.Name = "renameProfileToolStripMenuItem";
-            this.renameProfileToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.renameProfileToolStripMenuItem.Text = "Rename";
+            this.renameProfileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.renameProfileToolStripMenuItem.Text = "Rename Profile";
             this.renameProfileToolStripMenuItem.Click += new System.EventHandler(this.renameProfileToolStripMenuItem_Click);
             // 
             // duplicateProfileToolStripMenuItem
             // 
             this.duplicateProfileToolStripMenuItem.Name = "duplicateProfileToolStripMenuItem";
-            this.duplicateProfileToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.duplicateProfileToolStripMenuItem.Text = "Duplicate";
+            this.duplicateProfileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.duplicateProfileToolStripMenuItem.Text = "Duplicate Profile";
             this.duplicateProfileToolStripMenuItem.Click += new System.EventHandler(this.duplicateProfileToolStripMenuItem_Click);
             // 
             // deleteProfileToolStripMenuItem
             // 
             this.deleteProfileToolStripMenuItem.Name = "deleteProfileToolStripMenuItem";
-            this.deleteProfileToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.deleteProfileToolStripMenuItem.Text = "Delete";
+            this.deleteProfileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteProfileToolStripMenuItem.Text = "Delete Profile";
             this.deleteProfileToolStripMenuItem.Click += new System.EventHandler(this.deleteProfileToolStripMenuItem_Click);
             // 
             // profilesToolStripMenuItem
@@ -399,7 +403,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 108);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 13);
+            this.label2.Size = new System.Drawing.Size(60, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "TargetPath";
             // 
@@ -427,6 +431,18 @@
             this.textBoxProfileName.ReadOnly = true;
             this.textBoxProfileName.Size = new System.Drawing.Size(200, 20);
             this.textBoxProfileName.TabIndex = 0;
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -492,6 +508,8 @@
         private System.Windows.Forms.Button buttonBrowseRepoImage;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBoxRepoImage;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }
 

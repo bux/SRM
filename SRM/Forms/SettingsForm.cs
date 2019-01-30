@@ -30,6 +30,10 @@ namespace SRM.Forms
             {
                 textBoxPathModsFolder.Text = Settings.ModsFolderPath;
             }
+            if (!string.IsNullOrEmpty(Settings.RepoSourceFolderPath))
+            {
+                textBoxRepoSourceFolder.Text = Settings.RepoSourceFolderPath;
+            }
         }
 
 
@@ -56,7 +60,7 @@ namespace SRM.Forms
             if (!sourceRepoFolderValid)
             {
                 MessageBox.Show("TargetPath to Source Repo Folder is not valid", "Validation Error");
-                textBoxPathModsFolder.BackColor = Color.RosyBrown;
+                textBoxRepoSourceFolder.BackColor = Color.RosyBrown;
             }
 
             if (!swiftyValid || !modsFolderValid || !sourceRepoFolderValid)
