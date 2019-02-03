@@ -82,6 +82,17 @@ namespace SRM.Managers
                 JunctionPoint.Create(Path.Combine(modFolderPath, mod), Path.Combine(diSourceFolder.FullName, mod), true);
             }
 
+            // delete old mod.srf files
+            foreach (var dir in diSourceFolder.EnumerateDirectories())
+            {
+                var fiModSrf = new FileInfo(Path.Combine(dir.FullName, Constants.ModDescriptionFileName));
+                if (fiModSrf.Exists)
+                {
+                    fiModSrf.Delete();
+                }
+            }
+
+
             // execute swifty-cli
             ProcessHelper.ExecuteProcess($"\"{swiftyCliPath}\" create \"{fiRepoJson.FullName}\" \"{repoProfile.Repository.TargetPath}\" --nocopy");
 
@@ -110,7 +121,7 @@ namespace SRM.Managers
                 // delete temp folder
                 dir.Delete(true);
             }
-            
+
         }
     }
 }
