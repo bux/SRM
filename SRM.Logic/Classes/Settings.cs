@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace SRM.Classes
+namespace SRM.Logic.Classes
 {
     public class Settings
     {

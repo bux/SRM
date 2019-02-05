@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using SRM.Classes;
-using SRM.Classes.Swifty;
+using SRM.Logic.Classes;
+using SRM.Logic.Classes.Swifty;
 
-namespace SRM.Helpers
+namespace SRM.Logic.Helpers
 {
     public static class SwiftyJsonHelper
     {

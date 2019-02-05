@@ -3,9 +3,9 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using SRM.Classes;
 using SRM.Forms;
-using SRM.Managers;
+using SRM.Logic.Classes;
+using SRM.Logic.Managers;
 
 namespace SRM
 {

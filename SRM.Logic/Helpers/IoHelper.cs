@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace SRM.Helpers
+namespace SRM.Logic.Helpers
 {
     public static class IoHelper
     {

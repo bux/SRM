@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace SRM.Classes
+namespace SRM.Logic.Classes
 {
     public class Repository
     {

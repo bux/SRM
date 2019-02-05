@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using SRM.Classes;
+using SRM.Logic.Classes;
 
 namespace SRM.Helpers
 {

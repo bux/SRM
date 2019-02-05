@@ -1,4 +1,4 @@
-﻿namespace SRM.Classes.Swifty
+namespace SRM.Logic.Classes.Swifty
 {
     public class SwiftyServer
     {

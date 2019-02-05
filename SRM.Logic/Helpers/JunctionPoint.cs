@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Microsoft.Win32.SafeHandles;
 
-namespace SRM.Helpers {
+namespace SRM.Logic.Helpers {
     /// <summary>
     /// Provides access to NTFS junction points in .Net.
     /// </summary>

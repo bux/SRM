@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace SRM.Classes.Swifty
+namespace SRM.Logic.Classes.Swifty
 {
     public class SwiftyRepo
     {

@@ -1,8 +1,6 @@
-using System;
 using System.Diagnostics;
-using System.IO;
 
-namespace SRM.Helpers
+namespace SRM.Logic.Helpers
 {
     public static class ProcessHelper
     {

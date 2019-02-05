@@ -1,4 +1,4 @@
-namespace SRM.Classes
+namespace SRM.Logic.Classes
 {
     public class RepoProfile
     {

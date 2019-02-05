@@ -42,9 +42,6 @@
     <Reference Include="Microsoft.WindowsAPICodePack.ShellExtensions, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.WindowsAPICodePack-Shell.1.1.0.0\lib\Microsoft.WindowsAPICodePack.ShellExtensions.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -58,17 +55,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Swifty\SwiftyAuthentication.cs" />
-    <Compile Include="Classes\Swifty\SwiftyMod.cs" />
-    <Compile Include="Classes\Swifty\SwiftyRepo.cs" />
-    <Compile Include="Classes\Swifty\SwiftyServer.cs" />
-    <Compile Include="Helpers\IoHelper.cs" />
-    <Compile Include="Helpers\JunctionPoint.cs" />
-    <Compile Include="Classes\RepoProfile.cs" />
-    <Compile Include="Classes\Repository.cs" />
-    <Compile Include="Classes\ServerInfo.cs" />
-    <Compile Include="Classes\Settings.cs" />
-    <Compile Include="Constants.cs" />
     <Compile Include="Forms\RenameProfileForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,8 +73,6 @@
     <Compile Include="Forms\SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\ProcessHelper.cs" />
-    <Compile Include="Helpers\SwiftyJsonHelper.cs" />
     <Compile Include="Helpers\ValidationHelper.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -96,10 +80,6 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Managers\JunctionManager.cs" />
-    <Compile Include="Managers\ProfileManager.cs" />
-    <Compile Include="Managers\RepoManager.cs" />
-    <Compile Include="Managers\SettingsManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\RenameProfileForm.resx">
@@ -137,8 +117,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Forms\Base\" />
+    <ProjectReference Include="..\SRM.Logic\SRM.Logic.csproj">
+      <Project>{a07a1709-2ac6-43f8-906d-0b8c38335f81}</Project>
+      <Name>SRM.Logic</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

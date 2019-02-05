@@ -3,10 +3,10 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using SRM.Classes;
-using SRM.Helpers;
+using SRM.Logic.Classes;
+using SRM.Logic.Helpers;
 
-namespace SRM.Managers
+namespace SRM.Logic.Managers
 {
     public class RepoManager
     {

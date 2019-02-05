@@ -1,4 +1,4 @@
-namespace SRM
+namespace SRM.Logic
 {
     public static class Constants
     {

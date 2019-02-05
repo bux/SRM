@@ -1,7 +1,7 @@
 using System.IO;
-using SRM.Helpers;
+using SRM.Logic.Helpers;
 
-namespace SRM.Managers
+namespace SRM.Logic.Managers
 {
     public class JunctionManager
     {

@@ -1,8 +1,8 @@
 using System.Linq;
 using Newtonsoft.Json;
-using SRM.Classes;
+using SRM.Logic.Classes;
 
-namespace SRM.Managers
+namespace SRM.Logic.Managers
 {
     public class ProfileManager
     {

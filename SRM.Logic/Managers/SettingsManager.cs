@@ -1,9 +1,9 @@
 using System;
 using System.IO;
 using Newtonsoft.Json;
-using SRM.Classes;
+using SRM.Logic.Classes;
 
-namespace SRM.Managers
+namespace SRM.Logic.Managers
 {
     public class SettingsManager
     {

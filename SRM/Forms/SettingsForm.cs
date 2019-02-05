@@ -3,7 +3,8 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using SRM.Classes;
+using SRM.Logic;
+using SRM.Logic.Classes;
 
 namespace SRM.Forms
 {
