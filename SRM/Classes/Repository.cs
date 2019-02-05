@@ -8,7 +8,7 @@ namespace SRM.Classes
         public string Name { get; set; } = string.Empty;
         public string TargetPath { get; set; } = string.Empty;
         public string ImagePath { get; set; } = string.Empty;
-        public string ClientParams { get; set; } = "-noSplash  -skipIntro  -noPause";
+        public string ClientParams { get; set; } = "-noSplash -skipIntro -noPause";
         public ServerInfo ServerInfo { get; set; } = new ServerInfo();
         public List<string> Mods { get; set; } = new List<string>();
 
