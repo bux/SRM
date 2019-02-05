@@ -5,10 +5,10 @@ namespace SRM.Logic.Enums
     [Flags]
     public enum RepoValidation
     {
-        Valid = 1,
-        ModsMissing = 2,
-        RepoNameMissing = 4,
-        TargetPathMissing = 8,
-        ImagePathMissing = 16
+        Valid = 1 << 0,
+        ModsMissing = 1 << 1,
+        RepoNameMissing = 1 << 2,
+        TargetPathMissing = 1 << 3,
+        ImagePathMissing = 1 << 4
     }
 }
