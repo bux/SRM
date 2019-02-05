@@ -43,6 +43,7 @@ namespace SRM
             duplicateProfileToolStripMenuItem.Enabled = _activeProfile != null;
             deleteProfileToolStripMenuItem.Enabled = _activeProfile != null;
 
+
             // Controls
             textBoxRepoName.Enabled = _activeProfile != null;
 
@@ -119,7 +120,6 @@ namespace SRM
             if (_activeProfile != null)
             {
                 foreach (var mod in _activeProfile.Repository.Mods)
-                {
                     if (dirNames.Contains(mod.ToLowerInvariant()))
                     {
                         var index = dirNames.IndexOf(mod);
@@ -128,7 +128,6 @@ namespace SRM
                             listBoxAllMods.SetSelected(index, true);
                         }
                     }
-                }
             }
         }
 
@@ -145,19 +144,78 @@ namespace SRM
         {
             profilesToolStripMenuItem.DropDownItems.Clear();
 
-            foreach (var repoProfile in _settings.RepoProfiles)
-            {
-                profilesToolStripMenuItem.DropDownItems.Add(repoProfile.Name, null, profileMenuItem_Click);
-            }
+            foreach (var repoProfile in _settings.RepoProfiles) profilesToolStripMenuItem.DropDownItems.Add(repoProfile.Name, null, profileMenuItem_Click);
         }
 
 
-        private void CreateRepository(RepoProfile activeProfile)
+        private void CreateRepository(RepoProfile profile)
         {
-            _repoManager.CreateRepository(activeProfile, _settings.ModsFolderPath, _settings.SwiftyCliPath, _settings.RepoSourceFolderPath);
+            _repoManager.CreateRepository(profile, _settings.ModsFolderPath, _settings.SwiftyCliPath, _settings.RepoSourceFolderPath);
         }
 
-        
+        private bool AreSettingsValid(Settings settings)
+        {
+            var settingsValid = ValidationHelper.AreSettingsValid(settings);
+            if (!settingsValid.HasFlag(SettingsValidation.Valid))
+            {
+                var sb = new StringBuilder().AppendLine("The settings are not valid and/or missing information");
+
+                if (settingsValid.HasFlag(SettingsValidation.SwiftyCliPathMissing))
+                {
+                    sb.AppendLine("* Path to swifty-cli.exe missing");
+                }
+
+                if (settingsValid.HasFlag(SettingsValidation.ModsFolderPathMissing))
+                {
+                    sb.AppendLine("* Path to Mods Folder missing");
+                }
+
+                if (settingsValid.HasFlag(SettingsValidation.RepoSourceFolderPathMissing))
+                {
+                    sb.AppendLine("* Path to Repo Source Folder missing");
+                }
+
+                MessageBox.Show(sb.ToString(), "Validation Error");
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool IsRepoValid(RepoProfile profile)
+        {
+            var repoValid = ValidationHelper.IsRepoValid(profile);
+            if (!repoValid.HasFlag(RepoValidation.Valid))
+            {
+                var sb = new StringBuilder().AppendLine("The repository is not valid and/or missing information");
+
+                if (repoValid.HasFlag(RepoValidation.RepoNameMissing))
+                {
+                    sb.AppendLine("* Repository name is missing");
+                }
+
+                if (repoValid.HasFlag(RepoValidation.TargetPathMissing))
+                {
+                    sb.AppendLine("* Target Path is missing");
+                }
+
+                if (repoValid.HasFlag(RepoValidation.ImagePathMissing))
+                {
+                    sb.AppendLine("* Image Path is missing");
+                }
+
+                if (repoValid.HasFlag(RepoValidation.ModsMissing))
+                {
+                    sb.AppendLine("* No mods selected");
+                }
+
+                MessageBox.Show(sb.ToString(), "Validation Error");
+                return false;
+            }
+
+            return true;
+        }
+
         #region Events
 
         private void profileMenuItem_Click(object sender, EventArgs e)
@@ -282,10 +340,7 @@ namespace SRM
 
 
             _activeProfile.Repository.Mods.Clear();
-            foreach (var selectedItem in listBoxAllMods.SelectedItems)
-            {
-                _activeProfile.Repository.Mods.Add(selectedItem.ToString());
-            }
+            foreach (var selectedItem in listBoxAllMods.SelectedItems) _activeProfile.Repository.Mods.Add(selectedItem.ToString());
 
             _settingsManager.SaveSettings(_settings);
         }
@@ -293,57 +348,14 @@ namespace SRM
         private void buttonCreateRepository_Click(object sender, EventArgs e)
         {
             // Validate
-            var repoValid = ValidationHelper.IsRepoValid(_activeProfile);
-            var settingsValid = ValidationHelper.AreSettingsValid(_settings);
 
-            if (!settingsValid.HasFlag(SettingsValidation.Valid))
+            if (!AreSettingsValid(_settings))
             {
-                var sb = new StringBuilder().AppendLine("The settings are not valid and/or missing information");
-
-                if (settingsValid.HasFlag(SettingsValidation.SwiftyCliPathMissing))
-                {
-                    sb.AppendLine("* Path to swifty-cli.exe missing");
-                }
-
-                if (settingsValid.HasFlag(SettingsValidation.ModsFolderPathMissing))
-                {
-                    sb.AppendLine("* Path to Mods Folder missing");
-                }
-
-                if (settingsValid.HasFlag(SettingsValidation.RepoSourceFolderPathMissing))
-                {
-                    sb.AppendLine("* Path to Repo Source Folder missing");
-                }
-
-                MessageBox.Show(sb.ToString(), "Validation Error");
                 return;
             }
 
-            if (!repoValid.HasFlag(RepoValidation.Valid))
+            if (!IsRepoValid(_activeProfile))
             {
-                var sb = new StringBuilder().AppendLine("The repository is not valid and/or missing information");
-
-                if (repoValid.HasFlag(RepoValidation.RepoNameMissing))
-                {
-                    sb.AppendLine("* Repository name is missing");
-                }
-
-                if (repoValid.HasFlag(RepoValidation.TargetPathMissing))
-                {
-                    sb.AppendLine("* Target Path is missing");
-                }
-
-                if (repoValid.HasFlag(RepoValidation.ImagePathMissing))
-                {
-                    sb.AppendLine("* Image Path is missing");
-                }
-
-                if (repoValid.HasFlag(RepoValidation.ModsMissing))
-                {
-                    sb.AppendLine("* No mods selected");
-                }
-
-                MessageBox.Show(sb.ToString(), "Validation Error");
                 return;
             }
 
@@ -359,7 +371,29 @@ namespace SRM
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
+        }
+
+        private void createAllRepositoriesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var confirmResult = MessageBox.Show("Creating all repositories will delete all contents from their target paths. Are you sure?", "Confirm Delete", MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.No)
+            {
+                return;
+            }
+
+            if (!AreSettingsValid(_settings))
+            {
+                return;
+            }
+
+            var validProfiles = _settings.RepoProfiles.Where(p => ValidationHelper.IsRepoValid(p).HasFlag(RepoValidation.Valid));
+
+            foreach (var validProfile in validProfiles)
+            {
+                // TODO Log
+                CreateRepository(validProfile);
+            }
         }
 
         #endregion

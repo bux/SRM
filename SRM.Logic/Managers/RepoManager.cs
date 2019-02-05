@@ -36,7 +36,7 @@ namespace SRM.Logic.Managers
             var diTargetFolder = new DirectoryInfo(repoProfile.Repository.TargetPath);
             if (!diTargetFolder.Exists)
             {
-                throw new InvalidOperationException($"Target folder '{repoProfile.Repository.TargetPath}' does not exist.");
+                diTargetFolder.Create();
             }
 
             foreach (var file in diTargetFolder.EnumerateFiles())
