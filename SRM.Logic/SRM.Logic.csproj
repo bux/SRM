@@ -53,11 +53,13 @@
     <Compile Include="Classes\Swifty\SwiftyRepo.cs" />
     <Compile Include="Classes\Swifty\SwiftyServer.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Enums\SettingsValidation.cs" />
     <Compile Include="Enums\RepoValidation.cs" />
     <Compile Include="Helpers\IoHelper.cs" />
     <Compile Include="Helpers\JunctionPoint.cs" />
     <Compile Include="Helpers\ProcessHelper.cs" />
     <Compile Include="Helpers\SwiftyJsonHelper.cs" />
+    <Compile Include="Helpers\ValidationHelper.cs" />
     <Compile Include="Managers\JunctionManager.cs" />
     <Compile Include="Managers\ProfileManager.cs" />
     <Compile Include="Managers\RepoManager.cs" />
