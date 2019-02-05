@@ -1,10 +1,12 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using SRM.Forms;
 using SRM.Logic.Classes;
+using SRM.Logic.Enums;
 using SRM.Logic.Managers;
 
 namespace SRM
@@ -53,6 +55,10 @@ namespace SRM
             textBoxServerPort.Enabled = _activeProfile != null;
 
             buttonBrowseProfilePath.Enabled = _activeProfile != null;
+            buttonBrowseRepoImage.Enabled = _activeProfile != null;
+
+            buttonSaveProfile.Enabled = _activeProfile != null;
+            buttonCreateRepository.Enabled = _activeProfile != null;
 
             checkBoxServerBattleEye.Enabled = _activeProfile != null;
 
@@ -150,14 +156,59 @@ namespace SRM
             _repoManager.CreateRepository(activeProfile, _settings.ModsFolderPath, _settings.SwiftyCliPath, _settings.RepoSourceFolderPath);
         }
 
-        private bool IsRepoValid()
+        private RepoValidation IsRepoValid()
         {
-            var valid = !string.IsNullOrEmpty(_activeProfile.Repository.Name)
-                        && !string.IsNullOrEmpty(_activeProfile.Repository.TargetPath)
-                        && !string.IsNullOrEmpty(_activeProfile.Repository.ImagePath)
-                        && _activeProfile.Repository.Mods.Any();
+            RepoValidation result = RepoValidation.Valid;
 
-            return valid;
+            if (string.IsNullOrEmpty(_activeProfile.Repository.Name))
+            {
+                if (result.HasFlag(RepoValidation.Valid))
+                {
+                    result = RepoValidation.RepoNameMissing;
+                }
+                else
+                {
+                    result = result | RepoValidation.RepoNameMissing;
+                }
+            }
+
+            if (string.IsNullOrEmpty(_activeProfile.Repository.TargetPath))
+            {
+                if (result.HasFlag(RepoValidation.Valid))
+                {
+                    result = RepoValidation.TargetPathMissing;
+                }
+                else
+                {
+                    result = result | RepoValidation.TargetPathMissing;
+                }
+            }
+
+            if (string.IsNullOrEmpty(_activeProfile.Repository.ImagePath))
+            {
+                if (result.HasFlag(RepoValidation.Valid))
+                {
+                    result = RepoValidation.ImagePathMissing;
+                }
+                else
+                {
+                    result = result | RepoValidation.ImagePathMissing;
+                }
+            }
+
+            if (!_activeProfile.Repository.Mods.Any())
+            {
+                if (result.HasFlag(RepoValidation.Valid))
+                {
+                    result = RepoValidation.ModsMissing;
+                }
+                else
+                {
+                    result = result | RepoValidation.ModsMissing;
+                }
+            }
+
+            return result;
         }
 
         private bool AreSettingsValid()
@@ -307,18 +358,39 @@ namespace SRM
             var repoValid = IsRepoValid();
             var settingsValid = AreSettingsValid();
 
-            if (!repoValid)
-            {
-                MessageBox.Show("The repository is not valid and/or missing information", "Validation Error");
-                return;
-            }
-
             if (!settingsValid)
             {
                 MessageBox.Show("The settings are not valid and/or missing information", "Validation Error");
                 return;
             }
 
+            if (!repoValid.HasFlag(RepoValidation.Valid))
+            {
+                var sb = new StringBuilder().AppendLine("The repository is not valid and/or missing information");
+
+                if (repoValid.HasFlag(RepoValidation.RepoNameMissing))
+                {
+                    sb.AppendLine("* Repository name is missing");
+                }
+
+                if (repoValid.HasFlag(RepoValidation.TargetPathMissing))
+                {
+                    sb.AppendLine("* Target Path is missing");
+                }
+
+                if (repoValid.HasFlag(RepoValidation.ImagePathMissing))
+                {
+                    sb.AppendLine("* Image Path is missing");
+                }
+
+                if (repoValid.HasFlag(RepoValidation.ModsMissing))
+                {
+                    sb.AppendLine("* No mods selected");
+                }
+
+                MessageBox.Show(sb.ToString(), "Validation Error");
+                return;
+            }
 
             var confirmResult = MessageBox.Show("Creating a repository will delete all contents from the target path. Are you sure?", "Confirm Delete", MessageBoxButtons.YesNo);
             if (confirmResult == DialogResult.No)

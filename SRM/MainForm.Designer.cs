@@ -34,6 +34,8 @@
             this.renameProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.duplicateProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.profilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -66,8 +68,6 @@
             this.textBoxProfilePath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxProfileName = new System.Windows.Forms.TextBox();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -104,30 +104,42 @@
             // newProfileToolStripMenuItem
             // 
             this.newProfileToolStripMenuItem.Name = "newProfileToolStripMenuItem";
-            this.newProfileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newProfileToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.newProfileToolStripMenuItem.Text = "New Profile";
             this.newProfileToolStripMenuItem.Click += new System.EventHandler(this.newProfileToolStripMenuItem_Click);
             // 
             // renameProfileToolStripMenuItem
             // 
             this.renameProfileToolStripMenuItem.Name = "renameProfileToolStripMenuItem";
-            this.renameProfileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.renameProfileToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.renameProfileToolStripMenuItem.Text = "Rename Profile";
             this.renameProfileToolStripMenuItem.Click += new System.EventHandler(this.renameProfileToolStripMenuItem_Click);
             // 
             // duplicateProfileToolStripMenuItem
             // 
             this.duplicateProfileToolStripMenuItem.Name = "duplicateProfileToolStripMenuItem";
-            this.duplicateProfileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.duplicateProfileToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.duplicateProfileToolStripMenuItem.Text = "Duplicate Profile";
             this.duplicateProfileToolStripMenuItem.Click += new System.EventHandler(this.duplicateProfileToolStripMenuItem_Click);
             // 
             // deleteProfileToolStripMenuItem
             // 
             this.deleteProfileToolStripMenuItem.Name = "deleteProfileToolStripMenuItem";
-            this.deleteProfileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteProfileToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.deleteProfileToolStripMenuItem.Text = "Delete Profile";
             this.deleteProfileToolStripMenuItem.Click += new System.EventHandler(this.deleteProfileToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(158, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // profilesToolStripMenuItem
             // 
@@ -161,12 +173,12 @@
             this.panel4.Controls.Add(this.buttonSaveProfile);
             this.panel4.Location = new System.Drawing.Point(284, 230);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(311, 97);
+            this.panel4.Size = new System.Drawing.Size(311, 144);
             this.panel4.TabIndex = 5;
             // 
             // buttonCreateRepository
             // 
-            this.buttonCreateRepository.Location = new System.Drawing.Point(3, 49);
+            this.buttonCreateRepository.Location = new System.Drawing.Point(3, 72);
             this.buttonCreateRepository.Name = "buttonCreateRepository";
             this.buttonCreateRepository.Size = new System.Drawing.Size(100, 40);
             this.buttonCreateRepository.TabIndex = 2;
@@ -176,7 +188,7 @@
             // 
             // buttonSaveProfile
             // 
-            this.buttonSaveProfile.Location = new System.Drawing.Point(3, 3);
+            this.buttonSaveProfile.Location = new System.Drawing.Point(3, 26);
             this.buttonSaveProfile.Name = "buttonSaveProfile";
             this.buttonSaveProfile.Size = new System.Drawing.Size(100, 40);
             this.buttonSaveProfile.TabIndex = 1;
@@ -431,18 +443,6 @@
             this.textBoxProfileName.ReadOnly = true;
             this.textBoxProfileName.Size = new System.Drawing.Size(200, 20);
             this.textBoxProfileName.TabIndex = 0;
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // MainForm
             // 

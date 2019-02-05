@@ -53,6 +53,7 @@
     <Compile Include="Classes\Swifty\SwiftyRepo.cs" />
     <Compile Include="Classes\Swifty\SwiftyServer.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Enums\RepoValidation.cs" />
     <Compile Include="Helpers\IoHelper.cs" />
     <Compile Include="Helpers\JunctionPoint.cs" />
     <Compile Include="Helpers\ProcessHelper.cs" />
@@ -66,5 +67,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
