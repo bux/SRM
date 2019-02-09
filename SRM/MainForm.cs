@@ -122,7 +122,7 @@ namespace SRM
                 foreach (var mod in _activeProfile.Repository.Mods)
                     if (dirNames.Contains(mod.ToLowerInvariant()))
                     {
-                        var index = dirNames.IndexOf(mod);
+                        var index = dirNames.IndexOf(mod.ToLowerInvariant());
                         if (index >= 0)
                         {
                             listBoxAllMods.SetSelected(index, true);
