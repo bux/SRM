@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -120,6 +121,7 @@ namespace SRM
             if (_activeProfile != null)
             {
                 foreach (var mod in _activeProfile.Repository.Mods)
+                {
                     if (dirNames.Contains(mod.ToLowerInvariant()))
                     {
                         var index = dirNames.IndexOf(mod.ToLowerInvariant());
@@ -128,6 +130,7 @@ namespace SRM
                             listBoxAllMods.SetSelected(index, true);
                         }
                     }
+                }
             }
         }
 
@@ -144,7 +147,10 @@ namespace SRM
         {
             profilesToolStripMenuItem.DropDownItems.Clear();
 
-            foreach (var repoProfile in _settings.RepoProfiles) profilesToolStripMenuItem.DropDownItems.Add(repoProfile.Name, null, profileMenuItem_Click);
+            foreach (var repoProfile in _settings.RepoProfiles)
+            {
+                profilesToolStripMenuItem.DropDownItems.Add(repoProfile.Name, null, profileMenuItem_Click);
+            }
         }
 
 
@@ -216,7 +222,8 @@ namespace SRM
             return true;
         }
 
-        private void ReadoutAllValues() {
+        private void ReadoutAllValues()
+        {
             _activeProfile.Name = textBoxProfileName.Text;
 
             _activeProfile.Repository.Name = textBoxRepoName.Text;
@@ -234,10 +241,19 @@ namespace SRM
 
 
             _activeProfile.Repository.Mods.Clear();
-            foreach (var selectedItem in listBoxAllMods.SelectedItems) _activeProfile.Repository.Mods.Add(selectedItem.ToString());
+            foreach (var selectedItem in listBoxAllMods.SelectedItems)
+            {
+                _activeProfile.Repository.Mods.Add(selectedItem.ToString());
+            }
         }
 
         #region Events
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            this.Text = $"{this.Text} - {assemblyVersion}";
+        }
 
         private void profileMenuItem_Click(object sender, EventArgs e)
         {
@@ -401,13 +417,16 @@ namespace SRM
             }
         }
 
-        private void linkLabelSelectAllMods_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            for (var i = 0; i < listBoxAllMods.Items.Count; i++) {
+        private void linkLabelSelectAllMods_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            for (var i = 0; i < listBoxAllMods.Items.Count; i++)
+            {
                 listBoxAllMods.SetSelected(i, true);
             }
         }
 
-        private void linkLabelDeselectAllMods_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+        private void linkLabelDeselectAllMods_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
             listBoxAllMods.SelectedItems.Clear();
         }
 
