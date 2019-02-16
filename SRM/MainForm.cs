@@ -401,6 +401,16 @@ namespace SRM
             }
         }
 
+        private void linkLabelSelectAllMods_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            for (var i = 0; i < listBoxAllMods.Items.Count; i++) {
+                listBoxAllMods.SetSelected(i, true);
+            }
+        }
+
+        private void linkLabelDeselectAllMods_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            listBoxAllMods.SelectedItems.Clear();
+        }
+
         #endregion
     }
 }

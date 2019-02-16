@@ -37,6 +37,8 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.profilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createAllRepositoriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -68,8 +70,8 @@
             this.textBoxProfilePath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxProfileName = new System.Windows.Forms.TextBox();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.createAllRepositoriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.linkLabelDeselectAllMods = new System.Windows.Forms.LinkLabel();
+            this.linkLabelSelectAllMods = new System.Windows.Forms.LinkLabel();
             this.menuStrip.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -150,6 +152,21 @@
             this.profilesToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.profilesToolStripMenuItem.Text = "Profiles";
             // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.createAllRepositoriesToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // createAllRepositoriesToolStripMenuItem
+            // 
+            this.createAllRepositoriesToolStripMenuItem.Name = "createAllRepositoriesToolStripMenuItem";
+            this.createAllRepositoriesToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.createAllRepositoriesToolStripMenuItem.Text = "Create all repositories";
+            this.createAllRepositoriesToolStripMenuItem.Click += new System.EventHandler(this.createAllRepositoriesToolStripMenuItem_Click);
+            // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
@@ -203,6 +220,8 @@
             // 
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.panel3.Controls.Add(this.linkLabelSelectAllMods);
+            this.panel3.Controls.Add(this.linkLabelDeselectAllMods);
             this.panel3.Controls.Add(this.listBoxAllMods);
             this.panel3.Controls.Add(this.label8);
             this.panel3.Location = new System.Drawing.Point(12, 230);
@@ -447,20 +466,33 @@
             this.textBoxProfileName.Size = new System.Drawing.Size(200, 20);
             this.textBoxProfileName.TabIndex = 0;
             // 
-            // toolsToolStripMenuItem
+            // linkLabelDeselectAllMods
             // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.createAllRepositoriesToolStripMenuItem});
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
-            this.toolsToolStripMenuItem.Text = "Tools";
+            this.linkLabelDeselectAllMods.AutoSize = true;
+            this.linkLabelDeselectAllMods.LinkBehavior = System.Windows.Forms.LinkBehavior.AlwaysUnderline;
+            this.linkLabelDeselectAllMods.Location = new System.Drawing.Point(199, 10);
+            this.linkLabelDeselectAllMods.Name = "linkLabelDeselectAllMods";
+            this.linkLabelDeselectAllMods.Size = new System.Drawing.Size(33, 13);
+            this.linkLabelDeselectAllMods.TabIndex = 6;
+            this.linkLabelDeselectAllMods.TabStop = true;
+            this.linkLabelDeselectAllMods.Text = "None";
+            this.linkLabelDeselectAllMods.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.linkLabelDeselectAllMods.VisitedLinkColor = System.Drawing.Color.Blue;
+            this.linkLabelDeselectAllMods.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelDeselectAllMods_LinkClicked);
             // 
-            // createAllRepositoriesToolStripMenuItem
+            // linkLabelSelectAllMods
             // 
-            this.createAllRepositoriesToolStripMenuItem.Name = "createAllRepositoriesToolStripMenuItem";
-            this.createAllRepositoriesToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.createAllRepositoriesToolStripMenuItem.Text = "Create all repositories";
-            this.createAllRepositoriesToolStripMenuItem.Click += new System.EventHandler(this.createAllRepositoriesToolStripMenuItem_Click);
+            this.linkLabelSelectAllMods.AutoSize = true;
+            this.linkLabelSelectAllMods.LinkBehavior = System.Windows.Forms.LinkBehavior.AlwaysUnderline;
+            this.linkLabelSelectAllMods.Location = new System.Drawing.Point(175, 10);
+            this.linkLabelSelectAllMods.Name = "linkLabelSelectAllMods";
+            this.linkLabelSelectAllMods.Size = new System.Drawing.Size(18, 13);
+            this.linkLabelSelectAllMods.TabIndex = 7;
+            this.linkLabelSelectAllMods.TabStop = true;
+            this.linkLabelSelectAllMods.Text = "All";
+            this.linkLabelSelectAllMods.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.linkLabelSelectAllMods.VisitedLinkColor = System.Drawing.Color.Blue;
+            this.linkLabelSelectAllMods.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelSelectAllMods_LinkClicked);
             // 
             // MainForm
             // 
@@ -530,6 +562,8 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createAllRepositoriesToolStripMenuItem;
+        private System.Windows.Forms.LinkLabel linkLabelSelectAllMods;
+        private System.Windows.Forms.LinkLabel linkLabelDeselectAllMods;
     }
 }
 
