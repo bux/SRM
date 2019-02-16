@@ -216,6 +216,27 @@ namespace SRM
             return true;
         }
 
+        private void ReadoutAllValues() {
+            _activeProfile.Name = textBoxProfileName.Text;
+
+            _activeProfile.Repository.Name = textBoxRepoName.Text;
+            _activeProfile.Repository.ImagePath = textBoxRepoImage.Text;
+            _activeProfile.Repository.ClientParams = textBoxClientParameters.Text;
+            _activeProfile.Repository.TargetPath = textBoxProfilePath.Text;
+            _activeProfile.Repository.ServerInfo.Address = textBoxServerAddress.Text;
+            _activeProfile.Repository.ServerInfo.Name = textBoxServerName.Text;
+            _activeProfile.Repository.ServerInfo.Password = textBoxServerPassword.Text;
+
+            var result = int.TryParse(textBoxServerPort.Text, out var portResult) ? portResult : 2302;
+            _activeProfile.Repository.ServerInfo.Port = result;
+
+            _activeProfile.Repository.ServerInfo.BattleEye = checkBoxServerBattleEye.Checked;
+
+
+            _activeProfile.Repository.Mods.Clear();
+            foreach (var selectedItem in listBoxAllMods.SelectedItems) _activeProfile.Repository.Mods.Add(selectedItem.ToString());
+        }
+
         #region Events
 
         private void profileMenuItem_Click(object sender, EventArgs e)
@@ -263,7 +284,8 @@ namespace SRM
                 renameProfileForm.ShowDialog(this);
                 if (renameProfileForm.DialogResult == DialogResult.OK)
                 {
-                    _profileManager.RenameProfile(_activeProfile, renameProfileForm.NewProfileName);
+                    ReadoutAllValues();
+                    _activeProfile = _profileManager.RenameProfile(_activeProfile, renameProfileForm.NewProfileName);
                     _settingsManager.SaveSettings(_settings);
 
                     SwitchProfile(_activeProfile);
@@ -323,24 +345,7 @@ namespace SRM
 
         private void buttonSaveProfile_Click(object sender, EventArgs e)
         {
-            _activeProfile.Name = textBoxProfileName.Text;
-
-            _activeProfile.Repository.Name = textBoxRepoName.Text;
-            _activeProfile.Repository.ImagePath = textBoxRepoImage.Text;
-            _activeProfile.Repository.ClientParams = textBoxClientParameters.Text;
-            _activeProfile.Repository.TargetPath = textBoxProfilePath.Text;
-            _activeProfile.Repository.ServerInfo.Address = textBoxServerAddress.Text;
-            _activeProfile.Repository.ServerInfo.Name = textBoxServerName.Text;
-            _activeProfile.Repository.ServerInfo.Password = textBoxServerPassword.Text;
-
-            var result = int.TryParse(textBoxServerPort.Text, out var portResult) ? portResult : 2302;
-            _activeProfile.Repository.ServerInfo.Port = result;
-
-            _activeProfile.Repository.ServerInfo.BattleEye = checkBoxServerBattleEye.Checked;
-
-
-            _activeProfile.Repository.Mods.Clear();
-            foreach (var selectedItem in listBoxAllMods.SelectedItems) _activeProfile.Repository.Mods.Add(selectedItem.ToString());
+            ReadoutAllValues();
 
             _settingsManager.SaveSettings(_settings);
         }
