@@ -5,9 +5,9 @@
 ### Requirements
 
 * swifty-cli from <https://getswifty.net/download>
-* A folder where all mods are stored
-* A temporary folder where all generated repositories are first created in
-* A folder where the output of all repositories are stored in (e.g. somewhere in "htdocs" for apache, or "wwwroot" for IIS)
+* A folder where all mods are stored _(e.g. `C:\AllMyMods`)_
+* A temporary folder where all generated repositories are first created in _(e.g. `C:\Temp\SwiftyRepos`)_
+* A folder where the output of all repositories are stored in (e.g. somewhere in "htdocs" for apache, or "wwwroot" for IIS) _(e.g. `C:\inetpub\wwwroot\Repos`)_
 
 ### Configuration
 
@@ -27,11 +27,10 @@ When first starting SRM you should adjust the configuration to your needs. To do
 | Server Name _(optional)_ | The name of your Arma 3 Server |
 | Server Address _(optional)_ | The IP address of your Arma 3 Server |
 | Server Port _(optional)_ | The Port of your Arma 3 Server |
-| Server Password _(optional)_ | The password of your Arma 3 Server if any |
+| Server Password _(optional)_ | The password of your Arma 3 Server (if any) |
 | Client Parameters _(optional)_ | [Arma 3 Startup Parameters](https://community.bistudio.com/wiki/Arma_3_Startup_Parameters) that a client should start with. Default `-noSplash -skipIntro -noPause` |
 | BattleEye _(optional)_ | If your Arma 3 Server uses BattleEye |
 
-* After filling out the required fields, choose the mods you want to have in your repository from the listbox below
-* You can select multiple by just clicking with the left mouse button
+* After filling out the required fields, choose the mods you want to have in your repository from the listbox below _(You can select multiple by just clicking with the left mouse button)_
 * When you have finished your selection click on the "Save Profile" button
 * Now you can click on "Create Repository" to let swifty-cli create the repository for you and have SRM create the junctions.
