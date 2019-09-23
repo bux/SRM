@@ -7,7 +7,7 @@
 * swifty-cli from <https://getswifty.net/download>
 * A folder where all mods are stored _(e.g. `C:\AllMyMods`)_
 * A temporary folder where all generated repositories are first created in _(e.g. `C:\Temp\SwiftyRepos`)_
-* A folder where the output of all repositories are stored in (e.g. somewhere in "htdocs" for apache, or "wwwroot" for IIS) _(e.g. `C:\inetpub\wwwroot\Repos`)_
+* A folder where the output of all repositories are stored in _(e.g. somewhere in "htdocs" for apache, or "wwwroot" for IIS e.g. `C:\inetpub\wwwroot\Repos`)_
 
 ### Configuration
 
