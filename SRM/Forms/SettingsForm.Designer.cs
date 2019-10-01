@@ -32,6 +32,7 @@
             this.buttonBrowseSwiftyCli = new System.Windows.Forms.Button();
             this.labelPathSwiftyCli = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxRepoSourceFolder = new System.Windows.Forms.TextBox();
@@ -76,6 +77,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnCancel);
             this.panel1.Controls.Add(this.groupBox3);
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.btnSave);
@@ -83,8 +85,18 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(451, 276);
+            this.panel1.Size = new System.Drawing.Size(449, 263);
             this.panel1.TabIndex = 3;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(281, 230);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 7;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // groupBox3
             // 
@@ -93,30 +105,30 @@
             this.groupBox3.Controls.Add(this.buttonBrowseRepoSourceFolder);
             this.groupBox3.Location = new System.Drawing.Point(12, 144);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(425, 71);
+            this.groupBox3.Size = new System.Drawing.Size(425, 80);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Repo Source Folder";
+            this.groupBox3.Text = "Temporary Repository Folder";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(9, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 13);
+            this.label1.Size = new System.Drawing.Size(298, 13);
             this.label1.TabIndex = 5;
-            this.label1.Text = "Repo Source Folder";
+            this.label1.Text = "Path to the Temporary Repo Folder (Used for preparing Repo)";
             // 
             // textBoxRepoSourceFolder
             // 
-            this.textBoxRepoSourceFolder.Location = new System.Drawing.Point(118, 26);
+            this.textBoxRepoSourceFolder.Location = new System.Drawing.Point(12, 45);
             this.textBoxRepoSourceFolder.Name = "textBoxRepoSourceFolder";
-            this.textBoxRepoSourceFolder.Size = new System.Drawing.Size(261, 20);
+            this.textBoxRepoSourceFolder.Size = new System.Drawing.Size(364, 20);
             this.textBoxRepoSourceFolder.TabIndex = 3;
             // 
             // buttonBrowseRepoSourceFolder
             // 
-            this.buttonBrowseRepoSourceFolder.Location = new System.Drawing.Point(385, 24);
+            this.buttonBrowseRepoSourceFolder.Location = new System.Drawing.Point(382, 43);
             this.buttonBrowseRepoSourceFolder.Name = "buttonBrowseRepoSourceFolder";
             this.buttonBrowseRepoSourceFolder.Size = new System.Drawing.Size(30, 23);
             this.buttonBrowseRepoSourceFolder.TabIndex = 4;
@@ -164,7 +176,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(362, 241);
+            this.btnSave.Location = new System.Drawing.Point(362, 230);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 4;
@@ -188,7 +200,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(451, 276);
+            this.ClientSize = new System.Drawing.Size(449, 263);
             this.Controls.Add(this.panel1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -224,5 +236,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxRepoSourceFolder;
         private System.Windows.Forms.Button buttonBrowseRepoSourceFolder;
+        private System.Windows.Forms.Button btnCancel;
     }
 }
