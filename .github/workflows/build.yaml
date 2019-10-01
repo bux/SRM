@@ -1,0 +1,23 @@
+name: Build Source
+# This workflow is triggered on pushes to the repository.
+on: [push]
+
+jobs:
+  build:
+    name: Build
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@master
+
+    - name: Setup MSBuild.exe
+      uses: warrenbuckley/Setup-MSBuild@v1
+
+    - name: Setup Nuget.exe
+      uses: warrenbuckley/Setup-Nuget@v1
+
+    - name: Nuget
+      run: nuget restore
+
+    - name: MSBuild
+      working-directory: SRM
+      run: msbuild SRM.csproj
