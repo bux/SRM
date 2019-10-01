@@ -110,7 +110,7 @@ namespace SRM
             }
 
             var di = new DirectoryInfo(_settings.ModsFolderPath);
-            var allDirs = di.GetDirectories();
+            var allDirs = di.GetDirectories().Where(d => d.Name.StartsWith("@")).ToList();
 
             listBoxAllMods.DataSource = allDirs;
             listBoxAllMods.SelectedIndex = -1;
