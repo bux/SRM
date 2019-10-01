@@ -80,8 +80,11 @@ namespace SRM.Forms
             DialogResult = DialogResult.OK;
             Close();
         }
-
-
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
+        }
 
         private void buttonBrowseSwiftyCli_Click(object sender, EventArgs e)
         {
@@ -189,8 +192,8 @@ namespace SRM.Forms
 
 
 
-        #endregion
 
+        #endregion
 
     }
 }
