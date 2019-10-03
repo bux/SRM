@@ -7,6 +7,8 @@ namespace SRM.Logic
 
         public const string ModDescriptionFileName = "mod.srf";
         public const string RepoImageFileName = "repo.png";
+        public const string RepoIconFileName = "icon.png";
         public const string RepoConfigFileName = "repo.json";
+        
     }
 }

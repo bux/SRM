@@ -53,6 +53,18 @@ namespace SRM.Logic.Helpers
                 }
             }
 
+            if (string.IsNullOrEmpty(profile.Repository.IconPath))
+            {
+                if (result.HasFlag(RepoValidation.Valid))
+                {
+                    result = RepoValidation.IconPathMissing;
+                }
+                else
+                {
+                    result = result | RepoValidation.IconPathMissing;
+                }
+            }
+
             if (!profile.Repository.Mods.Any())
             {
                 if (result.HasFlag(RepoValidation.Valid))
