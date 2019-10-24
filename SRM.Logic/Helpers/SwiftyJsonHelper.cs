@@ -13,6 +13,8 @@ namespace SRM.Logic.Helpers
             {
                 RepoName = profile.Repository.Name,
                 BasePath = profile.Repository.BasePath,
+                RepoImagePath = Constants.RepoImageFileName,
+                IconImagePath = Constants.RepoIconFileName,
                 ClientParameters = profile.Repository.ClientParams,
                 Servers = new List<SwiftyServer>
                 {
@@ -25,7 +27,8 @@ namespace SRM.Logic.Helpers
                         BattleEye = profile.Repository.ServerInfo.BattleEye
                     }
                 },
-                RequiredMods = profile.Repository.Mods.Select(m => new SwiftyMod {ModName = m, Enabled = true}).ToList()
+                RequiredMods = profile.Repository.Mods.Select(m => new SwiftyMod {ModName = m, Enabled = true }).ToList(),
+                OptionalMods = new List<SwiftyMod>()
             };
 
             return swiftyRepo;

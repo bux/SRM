@@ -9,6 +9,7 @@ namespace SRM.Logic.Enums
         ModsMissing = 1 << 1,
         RepoNameMissing = 1 << 2,
         TargetPathMissing = 1 << 3,
-        ImagePathMissing = 1 << 4
+        ImagePathMissing = 1 << 4,
+        IconPathMissing = 1 << 5
     }
 }

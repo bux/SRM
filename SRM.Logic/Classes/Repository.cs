@@ -8,11 +8,13 @@ namespace SRM.Logic.Classes
         public string Name { get; set; } = string.Empty;
         public string TargetPath { get; set; } = string.Empty;
         public string ImagePath { get; set; } = string.Empty;
+        public string IconPath { get; set; } = string.Empty;
         public string ClientParams { get; set; } = "-noSplash -skipIntro -noPause";
         public ServerInfo ServerInfo { get; set; } = new ServerInfo();
         public List<string> Mods { get; set; } = new List<string>();
 
         [JsonIgnore]
         public string BasePath { get; set; } = string.Empty;
+
     }
 }

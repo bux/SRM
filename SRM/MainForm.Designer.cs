@@ -45,6 +45,8 @@
             this.buttonCreateRepository = new System.Windows.Forms.Button();
             this.buttonSaveProfile = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.linkLabelSelectAllMods = new System.Windows.Forms.LinkLabel();
+            this.linkLabelDeselectAllMods = new System.Windows.Forms.LinkLabel();
             this.listBoxAllMods = new System.Windows.Forms.ListBox();
             this.label8 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -70,8 +72,9 @@
             this.textBoxProfilePath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxProfileName = new System.Windows.Forms.TextBox();
-            this.linkLabelDeselectAllMods = new System.Windows.Forms.LinkLabel();
-            this.linkLabelSelectAllMods = new System.Windows.Forms.LinkLabel();
+            this.buttonBrowseRepoIcon = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBoxRepoIcon = new System.Windows.Forms.TextBox();
             this.menuStrip.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -157,7 +160,7 @@
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.createAllRepositoriesToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // createAllRepositoriesToolStripMenuItem
@@ -182,7 +185,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(607, 557);
+            this.panel1.Size = new System.Drawing.Size(607, 627);
             this.panel1.TabIndex = 1;
             // 
             // panel4
@@ -191,9 +194,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel4.Controls.Add(this.buttonCreateRepository);
             this.panel4.Controls.Add(this.buttonSaveProfile);
-            this.panel4.Location = new System.Drawing.Point(284, 230);
+            this.panel4.Location = new System.Drawing.Point(284, 256);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(311, 144);
+            this.panel4.Size = new System.Drawing.Size(311, 118);
             this.panel4.TabIndex = 5;
             // 
             // buttonCreateRepository
@@ -224,10 +227,38 @@
             this.panel3.Controls.Add(this.linkLabelDeselectAllMods);
             this.panel3.Controls.Add(this.listBoxAllMods);
             this.panel3.Controls.Add(this.label8);
-            this.panel3.Location = new System.Drawing.Point(12, 230);
+            this.panel3.Location = new System.Drawing.Point(12, 256);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(263, 315);
+            this.panel3.Size = new System.Drawing.Size(263, 359);
             this.panel3.TabIndex = 4;
+            // 
+            // linkLabelSelectAllMods
+            // 
+            this.linkLabelSelectAllMods.AutoSize = true;
+            this.linkLabelSelectAllMods.LinkBehavior = System.Windows.Forms.LinkBehavior.AlwaysUnderline;
+            this.linkLabelSelectAllMods.Location = new System.Drawing.Point(175, 10);
+            this.linkLabelSelectAllMods.Name = "linkLabelSelectAllMods";
+            this.linkLabelSelectAllMods.Size = new System.Drawing.Size(18, 13);
+            this.linkLabelSelectAllMods.TabIndex = 7;
+            this.linkLabelSelectAllMods.TabStop = true;
+            this.linkLabelSelectAllMods.Text = "All";
+            this.linkLabelSelectAllMods.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.linkLabelSelectAllMods.VisitedLinkColor = System.Drawing.Color.Blue;
+            this.linkLabelSelectAllMods.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelSelectAllMods_LinkClicked);
+            // 
+            // linkLabelDeselectAllMods
+            // 
+            this.linkLabelDeselectAllMods.AutoSize = true;
+            this.linkLabelDeselectAllMods.LinkBehavior = System.Windows.Forms.LinkBehavior.AlwaysUnderline;
+            this.linkLabelDeselectAllMods.Location = new System.Drawing.Point(199, 10);
+            this.linkLabelDeselectAllMods.Name = "linkLabelDeselectAllMods";
+            this.linkLabelDeselectAllMods.Size = new System.Drawing.Size(33, 13);
+            this.linkLabelDeselectAllMods.TabIndex = 6;
+            this.linkLabelDeselectAllMods.TabStop = true;
+            this.linkLabelDeselectAllMods.Text = "None";
+            this.linkLabelDeselectAllMods.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.linkLabelDeselectAllMods.VisitedLinkColor = System.Drawing.Color.Blue;
+            this.linkLabelDeselectAllMods.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelDeselectAllMods_LinkClicked);
             // 
             // listBoxAllMods
             // 
@@ -237,7 +268,7 @@
             this.listBoxAllMods.Location = new System.Drawing.Point(9, 26);
             this.listBoxAllMods.Name = "listBoxAllMods";
             this.listBoxAllMods.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.listBoxAllMods.Size = new System.Drawing.Size(223, 277);
+            this.listBoxAllMods.Size = new System.Drawing.Size(223, 316);
             this.listBoxAllMods.TabIndex = 2;
             // 
             // label8
@@ -256,11 +287,14 @@
             this.panel2.Controls.Add(this.groupBoxProfile);
             this.panel2.Location = new System.Drawing.Point(12, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(583, 221);
+            this.panel2.Size = new System.Drawing.Size(583, 247);
             this.panel2.TabIndex = 1;
             // 
             // groupBoxProfile
             // 
+            this.groupBoxProfile.Controls.Add(this.buttonBrowseRepoIcon);
+            this.groupBoxProfile.Controls.Add(this.label11);
+            this.groupBoxProfile.Controls.Add(this.textBoxRepoIcon);
             this.groupBoxProfile.Controls.Add(this.buttonBrowseRepoImage);
             this.groupBoxProfile.Controls.Add(this.label10);
             this.groupBoxProfile.Controls.Add(this.textBoxRepoImage);
@@ -284,7 +318,7 @@
             this.groupBoxProfile.Controls.Add(this.textBoxProfileName);
             this.groupBoxProfile.Location = new System.Drawing.Point(3, 3);
             this.groupBoxProfile.Name = "groupBoxProfile";
-            this.groupBoxProfile.Size = new System.Drawing.Size(577, 215);
+            this.groupBoxProfile.Size = new System.Drawing.Size(577, 241);
             this.groupBoxProfile.TabIndex = 0;
             this.groupBoxProfile.TabStop = false;
             this.groupBoxProfile.Text = "Profile";
@@ -466,39 +500,38 @@
             this.textBoxProfileName.Size = new System.Drawing.Size(200, 20);
             this.textBoxProfileName.TabIndex = 0;
             // 
-            // linkLabelDeselectAllMods
+            // buttonBrowseRepoIcon
             // 
-            this.linkLabelDeselectAllMods.AutoSize = true;
-            this.linkLabelDeselectAllMods.LinkBehavior = System.Windows.Forms.LinkBehavior.AlwaysUnderline;
-            this.linkLabelDeselectAllMods.Location = new System.Drawing.Point(199, 10);
-            this.linkLabelDeselectAllMods.Name = "linkLabelDeselectAllMods";
-            this.linkLabelDeselectAllMods.Size = new System.Drawing.Size(33, 13);
-            this.linkLabelDeselectAllMods.TabIndex = 6;
-            this.linkLabelDeselectAllMods.TabStop = true;
-            this.linkLabelDeselectAllMods.Text = "None";
-            this.linkLabelDeselectAllMods.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.linkLabelDeselectAllMods.VisitedLinkColor = System.Drawing.Color.Blue;
-            this.linkLabelDeselectAllMods.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelDeselectAllMods_LinkClicked);
+            this.buttonBrowseRepoIcon.Location = new System.Drawing.Point(212, 210);
+            this.buttonBrowseRepoIcon.Name = "buttonBrowseRepoIcon";
+            this.buttonBrowseRepoIcon.Size = new System.Drawing.Size(25, 23);
+            this.buttonBrowseRepoIcon.TabIndex = 24;
+            this.buttonBrowseRepoIcon.Text = "...";
+            this.buttonBrowseRepoIcon.UseVisualStyleBackColor = true;
+            this.buttonBrowseRepoIcon.Click += new System.EventHandler(this.buttonBrowseRepoIcon_Click);
             // 
-            // linkLabelSelectAllMods
+            // label11
             // 
-            this.linkLabelSelectAllMods.AutoSize = true;
-            this.linkLabelSelectAllMods.LinkBehavior = System.Windows.Forms.LinkBehavior.AlwaysUnderline;
-            this.linkLabelSelectAllMods.Location = new System.Drawing.Point(175, 10);
-            this.linkLabelSelectAllMods.Name = "linkLabelSelectAllMods";
-            this.linkLabelSelectAllMods.Size = new System.Drawing.Size(18, 13);
-            this.linkLabelSelectAllMods.TabIndex = 7;
-            this.linkLabelSelectAllMods.TabStop = true;
-            this.linkLabelSelectAllMods.Text = "All";
-            this.linkLabelSelectAllMods.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.linkLabelSelectAllMods.VisitedLinkColor = System.Drawing.Color.Blue;
-            this.linkLabelSelectAllMods.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelSelectAllMods_LinkClicked);
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 196);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(57, 13);
+            this.label11.TabIndex = 23;
+            this.label11.Text = "Repo Icon";
+            // 
+            // textBoxRepoIcon
+            // 
+            this.textBoxRepoIcon.Location = new System.Drawing.Point(6, 212);
+            this.textBoxRepoIcon.Name = "textBoxRepoIcon";
+            this.textBoxRepoIcon.ReadOnly = true;
+            this.textBoxRepoIcon.Size = new System.Drawing.Size(200, 20);
+            this.textBoxRepoIcon.TabIndex = 22;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(607, 581);
+            this.ClientSize = new System.Drawing.Size(607, 651);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
@@ -565,6 +598,9 @@
         private System.Windows.Forms.ToolStripMenuItem createAllRepositoriesToolStripMenuItem;
         private System.Windows.Forms.LinkLabel linkLabelSelectAllMods;
         private System.Windows.Forms.LinkLabel linkLabelDeselectAllMods;
+        private System.Windows.Forms.Button buttonBrowseRepoIcon;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBoxRepoIcon;
     }
 }
 
