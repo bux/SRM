@@ -68,7 +68,7 @@ namespace SRM.Logic.Managers
                 throw new InvalidOperationException($"icon.png at '{repoProfile.Repository.IconPath}' does not exist.");
             }
 
-            fiRepoImage.CopyTo(Path.Combine(diSourceFolder.FullName, Constants.RepoIconFileName), true);
+            fiRepoIcon.CopyTo(Path.Combine(diSourceFolder.FullName, Constants.RepoIconFileName), true);
 
 
             // create repo.json
