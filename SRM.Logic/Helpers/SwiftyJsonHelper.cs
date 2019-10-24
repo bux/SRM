@@ -27,7 +27,7 @@ namespace SRM.Logic.Helpers
                         BattleEye = profile.Repository.ServerInfo.BattleEye
                     }
                 },
-                RequiredMods = profile.Repository.Mods.Select(m => new SwiftyMod {ModName = m}).ToList(),
+                RequiredMods = profile.Repository.Mods.Select(m => new SwiftyMod {ModName = m, Enabled = true }).ToList(),
                 OptionalMods = new List<SwiftyMod>()
             };
 
