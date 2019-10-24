@@ -50,6 +50,7 @@ namespace SRM
 
             textBoxClientParameters.Enabled = _activeProfile != null;
             textBoxRepoImage.Enabled = _activeProfile != null;
+            textBoxRepoIcon.Enabled = _activeProfile != null;
             textBoxProfileName.Enabled = _activeProfile != null;
             textBoxProfilePath.Enabled = _activeProfile != null;
             textBoxServerAddress.Enabled = _activeProfile != null;
@@ -59,6 +60,7 @@ namespace SRM
 
             buttonBrowseProfilePath.Enabled = _activeProfile != null;
             buttonBrowseRepoImage.Enabled = _activeProfile != null;
+            buttonBrowseRepoIcon.Enabled = _activeProfile != null;
 
             buttonSaveProfile.Enabled = _activeProfile != null;
             buttonCreateRepository.Enabled = _activeProfile != null;
@@ -75,6 +77,7 @@ namespace SRM
                 textBoxRepoName.Text = "";
                 textBoxClientParameters.Text = "";
                 textBoxRepoImage.Text = "";
+                textBoxRepoIcon.Text = "";
                 textBoxProfileName.Text = "";
                 textBoxProfilePath.Text = "";
                 textBoxServerAddress.Text = "";
@@ -90,6 +93,7 @@ namespace SRM
             textBoxRepoName.Text = _activeProfile.Repository.Name;
             textBoxClientParameters.Text = _activeProfile.Repository.ClientParams;
             textBoxRepoImage.Text = _activeProfile.Repository.ImagePath;
+            textBoxRepoIcon.Text = _activeProfile.Repository.IconPath;
             textBoxProfileName.Text = _activeProfile.Name;
             textBoxProfilePath.Text = _activeProfile.Repository.TargetPath;
             textBoxServerAddress.Text = _activeProfile.Repository.ServerInfo.Address;
@@ -110,7 +114,7 @@ namespace SRM
             }
 
             var di = new DirectoryInfo(_settings.ModsFolderPath);
-            var allDirs = di.GetDirectories();
+            var allDirs = di.GetDirectories().Where(d => d.Name.StartsWith("@")).ToList();
 
             listBoxAllMods.DataSource = allDirs;
             listBoxAllMods.SelectedIndex = -1;
@@ -210,6 +214,11 @@ namespace SRM
                     sb.AppendLine("* Image Path is missing");
                 }
 
+                if (repoValid.HasFlag(RepoValidation.IconPathMissing))
+                {
+                    sb.AppendLine("* Icon Path is missing");
+                }
+
                 if (repoValid.HasFlag(RepoValidation.ModsMissing))
                 {
                     sb.AppendLine("* No mods selected");
@@ -228,6 +237,7 @@ namespace SRM
 
             _activeProfile.Repository.Name = textBoxRepoName.Text;
             _activeProfile.Repository.ImagePath = textBoxRepoImage.Text;
+            _activeProfile.Repository.IconPath = textBoxRepoIcon.Text;
             _activeProfile.Repository.ClientParams = textBoxClientParameters.Text;
             _activeProfile.Repository.TargetPath = textBoxProfilePath.Text;
             _activeProfile.Repository.ServerInfo.Address = textBoxServerAddress.Text;
@@ -319,7 +329,6 @@ namespace SRM
             SwitchProfile(duplicatedProfile);
         }
 
-
         private void deleteProfileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var confirmResult = MessageBox.Show("Are you sure to delete this profile", "Confirm Delete", MessageBoxButtons.YesNo);
@@ -350,12 +359,25 @@ namespace SRM
         {
             var fileDialog = new OpenFileDialog
             {
-                Filter = "Repository Image|repo.png"
+                Filter = "Repository Image|*.png"
             };
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
                 textBoxRepoImage.Text = fileDialog.FileName;
+            }
+        }
+
+        private void buttonBrowseRepoIcon_Click(object sender, EventArgs e)
+        {
+            var fileDialog = new OpenFileDialog
+            {
+                Filter = "Repository Icon|*.png"
+            };
+
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                textBoxRepoIcon.Text = fileDialog.FileName;
             }
         }
 
@@ -431,5 +453,7 @@ namespace SRM
         }
 
         #endregion
+
+        
     }
 }

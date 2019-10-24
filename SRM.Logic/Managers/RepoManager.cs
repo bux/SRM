@@ -19,6 +19,7 @@ namespace SRM.Logic.Managers
                 diSourceFolder.Create();
             }
 
+            // clean source directory from files and folders
             foreach (var file in diSourceFolder.EnumerateFiles())
             {
                 file.Delete();
@@ -32,7 +33,7 @@ namespace SRM.Logic.Managers
             // set the source folder
             repoProfile.Repository.BasePath = diSourceFolder.FullName;
 
-            // empty target folder
+            // clean target directory from files and folders
             var diTargetFolder = new DirectoryInfo(repoProfile.Repository.TargetPath);
             if (!diTargetFolder.Exists)
             {
@@ -50,6 +51,26 @@ namespace SRM.Logic.Managers
             }
 
 
+            // copy repo.png
+            var fiRepoImage = new FileInfo(repoProfile.Repository.ImagePath);
+            if (!fiRepoImage.Exists)
+            {
+                throw new InvalidOperationException($"repo.png at '{repoProfile.Repository.ImagePath}' does not exist.");
+            }
+
+            fiRepoImage.CopyTo(Path.Combine(diSourceFolder.FullName, Constants.RepoImageFileName), true);
+
+
+            // copy icon.png
+            var fiRepoIcon = new FileInfo(repoProfile.Repository.IconPath);
+            if (!fiRepoIcon.Exists)
+            {
+                throw new InvalidOperationException($"icon.png at '{repoProfile.Repository.IconPath}' does not exist.");
+            }
+
+            fiRepoImage.CopyTo(Path.Combine(diSourceFolder.FullName, Constants.RepoIconFileName), true);
+
+
             // create repo.json
             var swiftyRepo = SwiftyJsonHelper.MapToSwifty(repoProfile);
             var fiRepoJson = new FileInfo(Path.Combine(diSourceFolder.FullName, Constants.RepoConfigFileName));
@@ -64,16 +85,6 @@ namespace SRM.Logic.Managers
             {
                 serializer.Serialize(sr, swiftyRepo);
             }
-
-
-            // copy repo.png
-            var fiRepoImage = new FileInfo(repoProfile.Repository.ImagePath);
-            if (!fiRepoImage.Exists)
-            {
-                throw new InvalidOperationException($"repo.png at '{repoProfile.Repository.ImagePath}' does not exist.");
-            }
-
-            fiRepoImage.CopyTo(Path.Combine(diSourceFolder.FullName, Constants.RepoImageFileName), true);
 
 
             // create Junctions in source folder

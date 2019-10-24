@@ -6,10 +6,14 @@ namespace SRM.Logic.Classes.Swifty
     {
         public string RepoName { get; set; }
         public string BasePath { get; set; }
-        public string ClientParameters { get; set; }
-
+        
         public List<SwiftyMod> RequiredMods { get; set; }
         public List<SwiftyMod> OptionalMods { get; set; }
+
+        public string IconImagePath { get; set; }
+        public string RepoImagePath { get; set; }
+
+        public string ClientParameters { get; set; }
 
         public List<SwiftyServer> Servers { get; set; }
 
