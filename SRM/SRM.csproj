@@ -81,6 +81,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\RepoProfileViewModelExtension.cs" />
+    <Compile Include="ViewModels\RepoProfileViewModel.cs" />
+    <Compile Include="ViewModels\RepositoryViewModel.cs" />
+    <Compile Include="ViewModels\RepositoryViewModelExtension.cs" />
+    <Compile Include="ViewModels\ServerInfoViewModel.cs" />
+    <Compile Include="ViewModels\ServerInfoViewModelExtension.cs" />
     <EmbeddedResource Include="Forms\RenameProfileForm.resx">
       <DependentUpon>RenameProfileForm.cs</DependentUpon>
     </EmbeddedResource>

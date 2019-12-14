@@ -12,6 +12,7 @@ namespace SRM.Logic.Classes
         public string ClientParams { get; set; } = "-noSplash -skipIntro -noPause";
         public ServerInfo ServerInfo { get; set; } = new ServerInfo();
         public List<string> Mods { get; set; } = new List<string>();
+        public List<string> OptionalMods { get; set; } = new List<string>();
 
         [JsonIgnore]
         public string BasePath { get; set; } = string.Empty;
