@@ -86,9 +86,11 @@ namespace SRM.Logic.Managers
                 serializer.Serialize(sr, swiftyRepo);
             }
 
+            // Merge both mod lists (required and optional)
+            var allMods = repoProfile.Repository.Mods.Concat(repoProfile.Repository.OptionalMods).ToList();
 
-            // create Junctions in source folder
-            foreach (var mod in repoProfile.Repository.Mods)
+            // create Junctions for required mods in source folder
+            foreach (var mod in allMods)
             {
                 JunctionPoint.Create(Path.Combine(modFolderPath, mod), Path.Combine(diSourceFolder.FullName, mod), true);
             }
@@ -110,7 +112,7 @@ namespace SRM.Logic.Managers
 
             foreach (var dir in diTargetFolder.EnumerateDirectories())
             {
-                var modName = repoProfile.Repository.Mods.Single(m => m.Equals(dir.Name, StringComparison.OrdinalIgnoreCase));
+                var modName = allMods.Single(m => m.Equals(dir.Name, StringComparison.OrdinalIgnoreCase));
 
                 // in the target folder rename created mod folders to temp
                 dir.MoveTo($"{dir.FullName}_temp");

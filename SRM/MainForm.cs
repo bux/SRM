@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -10,6 +12,7 @@ using SRM.Logic.Classes;
 using SRM.Logic.Enums;
 using SRM.Logic.Helpers;
 using SRM.Logic.Managers;
+using SRM.ViewModels;
 
 namespace SRM
 {
@@ -18,7 +21,9 @@ namespace SRM
         private readonly ProfileManager _profileManager;
         private readonly RepoManager _repoManager;
         private readonly SettingsManager _settingsManager;
-        private RepoProfile _activeProfile;
+        private RepoProfileViewModel _activeProfile;
+
+        private BindingList<string> _modDirectories;
 
         private Settings _settings;
 
@@ -34,7 +39,8 @@ namespace SRM
 
             ListMods();
 
-            SwitchProfile(_settings?.RepoProfiles.FirstOrDefault());
+            var repoProfile = _settings?.RepoProfiles.FirstOrDefault();
+            SwitchProfile(repoProfile?.GetViewModelFromData());
         }
 
         private void ActivateControls()
@@ -68,6 +74,8 @@ namespace SRM
             checkBoxServerBattleEye.Enabled = _activeProfile != null;
 
             listBoxAllMods.Enabled = _activeProfile != null;
+            listBoxRequiredMods.Enabled = _activeProfile != null;
+            listBoxRequiredMods.Enabled = _activeProfile != null;
         }
 
         private void FillControls()
@@ -116,29 +124,37 @@ namespace SRM
             var di = new DirectoryInfo(_settings.ModsFolderPath);
             var allDirs = di.GetDirectories().Where(d => d.Name.StartsWith("@")).ToList();
 
-            listBoxAllMods.DataSource = allDirs;
-            listBoxAllMods.SelectedIndex = -1;
-            listBoxAllMods.DisplayMember = nameof(di.Name);
-
-            var dirNames = allDirs.Select(d => d.Name.ToLowerInvariant()).ToList();
+            _modDirectories = new BindingList<string>(allDirs.Select(p => p.Name).ToList());
 
             if (_activeProfile != null)
             {
-                foreach (var mod in _activeProfile.Repository.Mods)
+                listBoxRequiredMods.DataSource = _activeProfile.Repository.Mods;
+                listBoxOptionalMods.DataSource = _activeProfile.Repository.OptionalMods;
+
+                var modsToRemove = new List<string>();
+
+                foreach (var dirInfo in allDirs)
                 {
-                    if (dirNames.Contains(mod.ToLowerInvariant()))
+                    if (_activeProfile.Repository.Mods.Contains(dirInfo.Name) || _activeProfile.Repository.OptionalMods.Contains(dirInfo.Name))
                     {
-                        var index = dirNames.IndexOf(mod.ToLowerInvariant());
-                        if (index >= 0)
-                        {
-                            listBoxAllMods.SetSelected(index, true);
-                        }
+                        modsToRemove.Add(dirInfo.Name);
                     }
                 }
+
+                foreach (var modToRemove in modsToRemove)
+                {
+                    _modDirectories.Remove(modToRemove);
+                }
             }
+
+            var source = new BindingSource {DataSource = _modDirectories};
+
+            listBoxAllMods.DataSource = source;
+            listBoxAllMods.SelectedIndex = -1;
+            listBoxAllMods.DisplayMember = nameof(di.Name);
         }
 
-        private void SwitchProfile(RepoProfile profile)
+        private void SwitchProfile(RepoProfileViewModel profile)
         {
             _activeProfile = profile;
             ActivateControls();
@@ -192,9 +208,9 @@ namespace SRM
             return true;
         }
 
-        private bool IsRepoValid(RepoProfile profile)
+        private bool IsRepoValid(RepoProfileViewModel profile)
         {
-            var repoValid = ValidationHelper.IsRepoValid(profile);
+            var repoValid = ValidationHelper.IsRepoValid(profile.GetDataFromViewModel());
             if (!repoValid.HasFlag(RepoValidation.Valid))
             {
                 var sb = new StringBuilder().AppendLine("The repository is not valid and/or missing information");
@@ -248,12 +264,32 @@ namespace SRM
             _activeProfile.Repository.ServerInfo.Port = result;
 
             _activeProfile.Repository.ServerInfo.BattleEye = checkBoxServerBattleEye.Checked;
+        }
 
-
-            _activeProfile.Repository.Mods.Clear();
-            foreach (var selectedItem in listBoxAllMods.SelectedItems)
+        private void MoveListBoxItems(ListBox sourceListBox, BindingList<string> sourceList, ListBox targetListBox, BindingList<string> targetList)
+        {
+            var modsToRemove = new List<string>();
+            foreach (string selectedMod in sourceListBox.SelectedItems)
             {
-                _activeProfile.Repository.Mods.Add(selectedItem.ToString());
+                targetList.Add(selectedMod);
+                modsToRemove.Add(selectedMod);
+            }
+
+            var sortedList = targetList.OrderBy(p => p).ToList();
+
+            targetList = new BindingList<string>(sortedList);
+
+            foreach (var modToRemove in modsToRemove)
+            {
+                sourceList.Remove(modToRemove);
+            }
+        }
+
+        private void SelectAllListBoxEntries(ListBox listBox)
+        {
+            for (var i = 0; i < listBox.Items.Count; i++)
+            {
+                listBox.SetSelected(i, true);
             }
         }
 
@@ -262,14 +298,14 @@ namespace SRM
         private void MainForm_Load(object sender, EventArgs e)
         {
             var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            this.Text = $"{this.Text} - {assemblyVersion}";
+            Text = $"{Text} - {assemblyVersion}";
         }
 
         private void profileMenuItem_Click(object sender, EventArgs e)
         {
             // Get Profile by Name
             var profile = _settings.RepoProfiles.Single(p => p.Name.Equals(sender.ToString(), StringComparison.OrdinalIgnoreCase));
-            SwitchProfile(profile);
+            SwitchProfile(profile.GetViewModelFromData());
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -298,7 +334,7 @@ namespace SRM
 
                     _settingsManager.SaveSettings(_settings);
 
-                    SwitchProfile(profile);
+                    SwitchProfile(profile.GetViewModelFromData());
                 }
             }
         }
@@ -311,7 +347,8 @@ namespace SRM
                 if (renameProfileForm.DialogResult == DialogResult.OK)
                 {
                     ReadoutAllValues();
-                    _activeProfile = _profileManager.RenameProfile(_activeProfile, renameProfileForm.NewProfileName);
+                    var renamedProfile = _profileManager.RenameProfile(_activeProfile.GetDataFromViewModel(), renameProfileForm.NewProfileName);
+                    _activeProfile = renamedProfile.GetViewModelFromData();
                     _settingsManager.SaveSettings(_settings);
 
                     SwitchProfile(_activeProfile);
@@ -321,12 +358,13 @@ namespace SRM
 
         private void duplicateProfileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var duplicatedProfile = _profileManager.DuplicateProfile(_activeProfile);
+            var duplicatedProfile = _profileManager.DuplicateProfile(_activeProfile.GetDataFromViewModel());
+
             _profileManager.AddProfile(_settings, duplicatedProfile);
 
             _settingsManager.SaveSettings(_settings);
 
-            SwitchProfile(duplicatedProfile);
+            SwitchProfile(duplicatedProfile.GetViewModelFromData());
         }
 
         private void deleteProfileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -334,9 +372,10 @@ namespace SRM
             var confirmResult = MessageBox.Show("Are you sure to delete this profile", "Confirm Delete", MessageBoxButtons.YesNo);
             if (confirmResult == DialogResult.Yes)
             {
-                _settings.RepoProfiles.Remove(_activeProfile);
+                _settings.RepoProfiles.Remove(_activeProfile.GetDataFromViewModel());
                 _settingsManager.SaveSettings(_settings);
-                SwitchProfile(_settings.RepoProfiles.FirstOrDefault());
+                var repoProfile = _settings.RepoProfiles.FirstOrDefault();
+                SwitchProfile(repoProfile.GetViewModelFromData());
             }
         }
 
@@ -409,7 +448,7 @@ namespace SRM
             }
 
             _settingsManager.SaveSettings(_settings);
-            CreateRepository(_activeProfile);
+            CreateRepository(_activeProfile.GetDataFromViewModel());
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -433,18 +472,43 @@ namespace SRM
             var validProfiles = _settings.RepoProfiles.Where(p => ValidationHelper.IsRepoValid(p).HasFlag(RepoValidation.Valid));
 
             foreach (var validProfile in validProfiles)
-            {
                 // TODO Log
+            {
                 CreateRepository(validProfile);
             }
         }
 
+        private void btnAddToRequiredMods_Click(object sender, EventArgs e)
+        {
+            MoveListBoxItems(listBoxAllMods, _modDirectories, listBoxRequiredMods, _activeProfile.Repository.Mods);
+            listBoxAllMods.SelectedItems.Clear();
+            listBoxRequiredMods.SelectedItems.Clear();
+        }
+
+        private void btnRemoveFromRequiredMods_Click(object sender, EventArgs e)
+        {
+            MoveListBoxItems(listBoxRequiredMods, _activeProfile.Repository.Mods, listBoxAllMods, _modDirectories);
+            listBoxRequiredMods.SelectedItems.Clear();
+            listBoxAllMods.SelectedItems.Clear();
+        }
+
+        private void btnAddToOptionalMods_Click(object sender, EventArgs e)
+        {
+            MoveListBoxItems(listBoxAllMods, _modDirectories, listBoxOptionalMods, _activeProfile.Repository.OptionalMods);
+            listBoxAllMods.SelectedItems.Clear();
+            listBoxOptionalMods.SelectedItems.Clear();
+        }
+
+        private void btnRemoveFromOptionalMods_Click(object sender, EventArgs e)
+        {
+            MoveListBoxItems(listBoxOptionalMods, _activeProfile.Repository.OptionalMods, listBoxAllMods, _modDirectories);
+            listBoxOptionalMods.SelectedItems.Clear();
+            listBoxAllMods.SelectedItems.Clear();
+        }
+
         private void linkLabelSelectAllMods_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            for (var i = 0; i < listBoxAllMods.Items.Count; i++)
-            {
-                listBoxAllMods.SetSelected(i, true);
-            }
+            SelectAllListBoxEntries(listBoxAllMods);
         }
 
         private void linkLabelDeselectAllMods_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -452,8 +516,26 @@ namespace SRM
             listBoxAllMods.SelectedItems.Clear();
         }
 
-        #endregion
+        private void linkLabelSelectAllRequiredMods_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            SelectAllListBoxEntries(listBoxRequiredMods);
+        }
 
-        
+        private void linkLabelDeselectAllRequiredMods_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            listBoxRequiredMods.SelectedItems.Clear();
+        }
+
+        private void linkLabelSelectAllOptionalMods_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            SelectAllListBoxEntries(listBoxOptionalMods);
+        }
+
+        private void linkLabelDeselectAllOptionalMods_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            listBoxOptionalMods.SelectedItems.Clear();
+        }
+
+        #endregion
     }
 }

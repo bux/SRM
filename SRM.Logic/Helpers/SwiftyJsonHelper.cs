@@ -28,7 +28,7 @@ namespace SRM.Logic.Helpers
                     }
                 },
                 RequiredMods = profile.Repository.Mods.Select(m => new SwiftyMod {ModName = m, Enabled = true }).ToList(),
-                OptionalMods = new List<SwiftyMod>()
+                OptionalMods = profile.Repository.OptionalMods.Select(m => new SwiftyMod { ModName = m, Enabled = true }).ToList(),
             };
 
             return swiftyRepo;
