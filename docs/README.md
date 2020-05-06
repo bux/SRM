@@ -1,4 +1,6 @@
-# SRM
+# SRM (Swifty Repo Manager)
+
+SRM is a simple User Interface for managing multiple repositories for Swifty. The idea behind SRM is to have a single directory containing all mods and have them symlinked (or junction'ed) to an output folder that is served from a webserver.
 
 ## Using SRM
 
@@ -11,7 +13,7 @@
 
 ### Configuration
 
-When first starting SRM you should adjust the configuration to your needs. To do this click "Settings" in the menu. Adjust the paths to your need.
+When first starting SRM you should configure the settings. To do this click "Settings" in the menu. Adjust the paths to your need.
 
 ### Creating a new repository
 
@@ -22,8 +24,10 @@ When first starting SRM you should adjust the configuration to your needs. To do
 
 | Field | Description |
 |--|--|
+| Repository Name _(required)_ | The name of the repository. This will be displayed in the swifty client |
 | Target Path _(required)_ | The folder where the output of swity-cli will be copied to |
-| Repo Image _(required)_ | An image file (PNG, 300x160 pixel) that will be displayed in the swifty client |
+| Repo Image _(required)_ | An image file (PNG, e.g. 300x160 pixel) that will be displayed in the swifty client |
+| Repo Icon _(required)_ | An image file (PNG, e.g. 32x32 pixel) that will be displayed in the swifty client |
 | Server Name _(optional)_ | The name of your Arma 3 Server |
 | Server Address _(optional)_ | The IP address of your Arma 3 Server |
 | Server Port _(optional)_ | The Port of your Arma 3 Server |
@@ -31,6 +35,15 @@ When first starting SRM you should adjust the configuration to your needs. To do
 | Client Parameters _(optional)_ | [Arma 3 Startup Parameters](https://community.bistudio.com/wiki/Arma_3_Startup_Parameters) that a client should start with. Default `-noSplash -skipIntro -noPause` |
 | BattleEye _(optional)_ | If your Arma 3 Server uses BattleEye |
 
-* After filling out the required fields, choose the mods you want to have in your repository from the listbox below _(You can select multiple by just clicking with the left mouse button)_
+* After filling out the required fields, choose the mods you want to have in your repository from the listbox below. Either as required mods or as optional mods. _(You can select multiple by just clicking with the left mouse button)_
 * When you have finished your selection click on the "Save Profile" button
 * Now you can click on "Create Repository" to let swifty-cli create the repository for you and have SRM create the junctions.
+
+### Switching between multiple repositories
+
+* In the menu click on "Prodiles" and select the desired profile.
+
+### Create all repositories at once
+
+* In the menu click on "Tools" &rarr; "Create all repositories".
+    * This is useful, if you've updated a mod and want to recreate all repositories with the updated files.
